@@ -38,7 +38,7 @@ public class EventList {
             System.out.println("Create new event? Y for yes and N for no. ");
         }while(in.nextLine().equalsIgnoreCase("Y"));
     }
-    public void modifyEvent(int iD){
+    public void modifyEvent(Event event){
         String loop;
         do {
             System.out.println("""
@@ -53,14 +53,14 @@ public class EventList {
                     8. Seat distributions\s""");
             int input = Integer.parseInt(in.nextLine());
             switch (input) {
-                case 1 -> modifyEventName(iD);
-                case 2 -> modifyEventDate(iD);
-                case 3 -> modifyEventTime(iD);
-                case 4 -> modifyEventPrice(iD);
-                case 5 -> modifyVenueName(iD);
-                case 6 -> modifyVenueCost(iD);
-                case 7 -> modifyVenueCap(iD);
-                case 8 -> modifySeatDiv(iD);
+                case 1 -> modifyEventName(event);
+                case 2 -> modifyEventDate(event);
+                case 3 -> modifyEventTime(event);
+                case 4 -> modifyEventPrice(event);
+                case 5 -> modifyVenueName(event);
+                case 6 -> modifyVenueCost(event);
+                case 7 -> modifyVenueCap(event);
+                case 8 -> modifySeatDiv(event);
                 default -> {
                 }
             }
@@ -68,12 +68,13 @@ public class EventList {
             loop = in.nextLine();
         }while(loop.equalsIgnoreCase("yes"));
     }
-    public void modifyEventName(int iD){
+    public void modifyEventName(Event event){
+        String name = event.getName();
         System.out.println("What would you like to event name to?");
-        events.get(iD).setName(in.nextLine());
+        event.setName(in.nextLine());
+        System.out.println("Event: " + name + " Event name changed to :" +event.getName());
     }
-    public void modifyEventPrice(int iD){
-        Event myEvnt = events.get(iD);
+    public void modifyEventPrice(Event event){
         System.out.println("""
                 What price level would you like to modify?\s
                 1. VIP price\s
@@ -86,51 +87,60 @@ public class EventList {
         switch (input) {
             case 1 -> {
                 System.out.println("Please input the new cost for VIP tickets ");
-                myEvnt.setVipPrc(Double.parseDouble(in.nextLine()));
+                event.setVipPrc(Double.parseDouble(in.nextLine()));
             }
             case 2 -> {
                 System.out.println("Please input the new cost for Gold tickets ");
-                myEvnt.setGldPrc(Double.parseDouble(in.nextLine()));
+                event.setGldPrc(Double.parseDouble(in.nextLine()));
             }
             case 3 -> {
                 System.out.println("Please input the new cost for Silver tickets ");
-                myEvnt.setSlvrPrc(Double.parseDouble(in.nextLine()));
+                event.setSlvrPrc(Double.parseDouble(in.nextLine()));
             }
             case 4 -> {
                 System.out.println("Please input the new cost for Bronze tickets ");
-                myEvnt.setBrnzPrc(Double.parseDouble(in.nextLine()));
+                event.setBrnzPrc(Double.parseDouble(in.nextLine()));
             }
             case 5 -> {
                 System.out.println("Please input the new cost for General Admission tickets ");
-                myEvnt.setGaPrc(Double.parseDouble(in.nextLine()));
+                event.setGaPrc(Double.parseDouble(in.nextLine()));
             }
             default -> {
             }
         }
     }
 
-    public void modifyEventTime(int iD){
+    public void modifyEventTime(Event event){
+        String time = event.getTime();
         System.out.println("Please input the updated time for this event");
-        events.get(iD).setTime(in.nextLine());
+        event.setTime(in.nextLine());
+        System.out.println("Event " + event.getName() +" time changed from " + time + " to "+event.getTime());
     }
-    public void modifyEventDate(int iD){
+    public void modifyEventDate(Event event){
+        String date = event.getDate();
         System.out.println("Please input the new date for this event");
-        events.get(iD).setDate(in.nextLine());
+        event.setDate(in.nextLine());
+        System.out.println("Event "+ event.getName() + " date changed from " + date + " to "+ event.getDate());
     }
-    public void modifyVenueName(int iD){
+    public void modifyVenueName(Event event){
+        String vName = event.getVenueName();
         System.out.println("Please input the new Venue name for this event");
-        events.get(iD).setVenueName(in.nextLine());
+        event.setVenueName(in.nextLine());
+        System.out.println("Event " + event.getName() + " venue changed from " + vName +" to "+ event.getVenueName());
     }
-    public void modifyVenueCost(int iD){
-        System.out.println("Please input the new cost for VIP tickets");
-        events.get(iD).setVenueCost(Integer.parseInt(in.nextLine()));
+    public void modifyVenueCost(Event event){
+        int cost = event.getVenCost();
+        System.out.println("Please input the new cost for the venue");
+        event.setVenueCost(Integer.parseInt(in.nextLine()));
+        System.out.println("Venue cost for " + event.getName() + " at "+ event.getVenueName()+ " has been changed to " + event.getVenCost() + " from " + cost);
     }
-    public void modifyVenueCap(int iD){
+    public void modifyVenueCap(Event event){
+        int cap = event.getCapacity();
         System.out.println("Please input the new capacity for the venue");
-        events.get(iD).setVenueCapacity(Integer.parseInt(in.nextLine()));
+        event.setVenueCapacity(Integer.parseInt(in.nextLine()));
+        System.out.println("Venue capacity for event " + event.getName() + " has been changed to " + event.getCapacity() + " from " + cap);
     }
-    public void modifySeatDiv(int iD){
-        Event event = getEvent(iD);
+    public void modifySeatDiv(Event event){
         int vip;
         int gld;
         int slvr;

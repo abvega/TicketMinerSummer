@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserList {
@@ -23,32 +22,31 @@ public class UserList {
     public boolean userExist(String userName){
         return users.containsKey(userName);
     }
+
     public void modifyUser(User user){
         int input;
-        System.out.println("""
-                How would you like to modify your user profile?.\s
-                1.User Name\s
-                2.First Name\s
-                3.Last Name\s
-                4.Password\s
-                """);
-        input = Integer.parseInt(in.nextLine());
-        switch (input){
-            case 1:
-                chngUserName(user);
-                break;
-            case 2:
-                chngFrstNme(user);
-                break;
-            case 3:
-                chngLstNme(user);
-                break;
-            case 4:
-                chngPssWrd(user);
-                break;
-            default:
-                break;
-        }
+        do {
+            try {
+                System.out.println("""
+                        How would you like to modify your user profile?.\s
+                        1.User Name\s
+                        2.First Name\s
+                        3.Last Name\s
+                        4.Password\s
+                        """);
+                input = Integer.parseInt(in.nextLine());
+                switch (input) {
+                    case 1 -> chngUserName(user);
+                    case 2 -> chngFrstNme(user);
+                    case 3 -> chngLstNme(user);
+                    case 4 -> chngPssWrd(user);
+                    default -> throw new IllegalArgumentException("Please use one of the provided options");
+                }
+            } catch (IllegalArgumentException i) {
+                System.out.println("Message " + i);
+            }
+        System.out.println("Keep editing profile? Y or N ");
+        }while(in.nextLine().equalsIgnoreCase("Y"));
     }
     public void chngUserName(User user){
         String input;
@@ -90,17 +88,13 @@ public class UserList {
         }
     }
     public void chngFrstNme(User user){
-        String input;
         System.out.println("What would you like to change this user's first name to?");
-        input = in.nextLine();
-        user.setFirstName(input);
+        user.setFirstName(in.nextLine());
         System.out.println("User's name has been change to " + user.getFirstName());
     }
     public void chngLstNme(User user){
-        String input;
         System.out.println("What would you like to change this user's first name to?");
-        input = in.nextLine();
-        user.setLastName(input);
+        user.setLastName(in.nextLine());
         System.out.println("User's last name has been changed to "+ user.getLastName());
     }
     public void updtTix(User user, int tix){
@@ -110,7 +104,7 @@ public class UserList {
         user.setMember(!user.getIsMember());
     }
     public boolean chckBlnce(User user, double total){
-        return (user.getMoneyTotal()< total);
+        return (user.getMoneyTotal() > total);
     }
 
     /**

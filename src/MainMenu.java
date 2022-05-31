@@ -10,18 +10,24 @@ public class MainMenu {
             try {
                 System.out.println("""
                         Welcome to TicketMiner\s
-                        Are you a\s
+                        Are you a(n)\s
                         1. Admin\s
                         2. User\s
                         """);
                 input = Integer.parseInt(in.nextLine());
-                if (input == 1) {
-                    new AdminPanel();
+                switch(input){
+                    case 1:
+                        new AdminPanel();
+                        break;
+                    case 2:
+                        new UserPanel();
+                        break;
+                    case 3:
+                        return;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + input);
                 }
-                if (input == 2) {
-                    new UserPanel();
-                }
-            }catch (InputMismatchException | NumberFormatException i) {
+            }catch (InputMismatchException | IllegalStateException i) {
                 System.out.println("Message " + i);
             }
         }

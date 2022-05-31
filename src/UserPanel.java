@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserPanel {
@@ -24,41 +25,58 @@ public class UserPanel {
             }
         }while(true);
         System.out.println("Welcome " + myUser.getUserName() + "!");
-        System.out.println("""
-                What would you like to do today?\s
-                1. Buy tickets\s
-                2. Edit profile\s
-                """);
-        input = Integer.parseInt(in.nextLine());
-        switch(input){
-            case 1:
-                sellTick(myUser);
-                break;
-            case 2:
-                users.modifyUser(myUser);
-                break;
-            default:
-                break;
-        }
+        do {
+            try {
+                System.out.println("""
+                        What would you like to do today?\s
+                        1. Buy tickets\s
+                        2. Edit profile\s
+                        3. Exit\s
+                        """);
+                input = Integer.parseInt(in.nextLine());
+                switch (input) {
+                    case 1 -> sellTick(myUser);
+                    case 2 -> users.modifyUser(myUser);
+                    case 3 -> {
+                        return;
+                    }
+                    default -> throw new IllegalArgumentException("Please pick either buy tickets or edit profile");
+                }
+            } catch (InputMismatchException i) {
+                System.out.println("Message: " + i);
+            }
+        }while(true);
     }
     public void sellTick(User user) {
-        int userIn;
+        int userIn = 0;
         int limit;
-        Event userEv;
+        Event userEv = null;
         //or(int i =1; i < events.size(); i++){
         //  System.out.println(events.getEvent(i));
         //}
-        System.out.println("Please enter the ID of the event you wish to attend");
-        userEv = events.getEvent(Integer.parseInt(in.nextLine()));
-        System.out.println("""
-                What ticket type would you like to purchase?\s
-                1.VIP\s
-                2.Gold\s
-                3.Silver\s
-                4.Bronze\s
-                5.General Admission\s
-                """);
-        userIn = Integer.parseInt(in.nextLine());
+            do {
+                try {
+                    System.out.println("Please enter the ID of the event you wish to attend");
+                    userEv = events.getEvent(Integer.parseInt(in.nextLine()));
+                } catch (IllegalArgumentException n) {
+                    System.out.println("that isn't a valid Id number");
+                }
+            }while(userEv == null);
+            do{
+                try {
+                    System.out.println("""
+                            What ticket type would you like to purchase?\s
+                            1.VIP\s
+                            2.Gold\s
+                            3.Silver\s
+                            4.Bronze\s
+                            5.General Admission\s
+                            """);
+                    userIn = Integer.parseInt(in.nextLine());
+                }catch(IllegalArgumentException i){
+                    System.out.println("That isn't a valid ticket type" + i);
+                }
+        }while(userIn == 0);
         while (true) {
             System.out.println("How many would you like to purchase? Limit 10");
             limit = Integer.parseInt(in.nextLine());

@@ -16,7 +16,7 @@ public class MakeUser {
                 line = br.nextLine();
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Message "+ e);
         }
         return users;
     }

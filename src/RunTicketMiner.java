@@ -6,7 +6,6 @@ public class RunTicketMiner {
         Scanner in = new Scanner(System.in);
 
         new MainMenu();
-        Test test = new Test();
 
 
     }
