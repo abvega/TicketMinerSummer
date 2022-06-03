@@ -1,8 +1,41 @@
+import javax.swing.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MainMenu {
+
     Scanner in = new Scanner(System.in);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
 
     public MainMenu() {
         int input;
@@ -32,5 +65,6 @@ public class MainMenu {
             }
         }
     }
+     */
 }
 
