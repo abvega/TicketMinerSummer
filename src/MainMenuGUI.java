@@ -1,56 +1,34 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class MainMenuGUI extends JFrame {
-    private JPanel panel;
-    private JPanel panelb;
-    private JLabel label;
-    private JButton admin;
-    private JButton user;
-    private JButton exit;
-    private final int WINDOW_WIDTH =350;
+import java.io.IOException;
+
+public class MainMenuGUI {
+    private Stage stage;
+    private Parent root;
+    private Scene scene;
+    private final int WINDOW_WIDTH = 350;
     private final int WINDOW_HEIGHT = 250;
 
-    MainMenuGUI(){
-        setTitle("Welcome to TicketMiner");
-        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(2,1));
-        label = new JLabel("Are you a(n) Admin or a User? \n");
-        admin = new JButton("Admin");
-        user = new JButton("User");
-        exit = new JButton("Exit");
-        add(admin);
-        add(user);
-        add(exit);
-        admin.addActionListener(new adminListener());
-        user.addActionListener(new userListener());
-        exit.addActionListener(new exitListener());
-        panel = new JPanel();
-        panelb = new JPanel();
-        panel.add(label);
-        panelb.add(admin);
-        panelb.add(user);
-        panelb.add(exit);
-        add(panel);
-        add(panelb);
-        setVisible(true);
+    public void goBack(ActionEvent event) throws IOException {
+        scene = new Scene(FXMLLoader.load(getClass().getResource("WelcomeScreen.fxml")));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.sizeToScene();
+        stage.show();
     }
-    private class adminListener implements ActionListener {
-        public void actionPerformed(ActionEvent e){
-            new AdminPanelGUI();
-        }
+    public void admin(ActionEvent event) throws IOException{
+        scene = new Scene(FXMLLoader.load(getClass().getResource("AdminPanelGUI.fxml")));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.sizeToScene();
+        stage.show();
     }
-    private class userListener implements ActionListener{
-        public void actionPerformed(ActionEvent e){
-            new UserPanel();
-        }
-    }
-    private class exitListener implements ActionListener{
-        public void actionPerformed(ActionEvent e){
-            System.exit(0);
-        }
+    public void user(ActionEvent event) throws IOException{
+
     }
 }

@@ -1,18 +1,19 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class MakeUser {
-    public HashMap<String, User> userFromCSV(String fileName){
-        HashMap<String, User> users = new HashMap<>();
+    public ArrayList<User> userFromCSV(String fileName){
+        ArrayList<User> users = new ArrayList<>();
         try(Scanner br = new Scanner((new File(fileName)))){
             String headLine = br.nextLine();
             String line = br.nextLine();
             while(br.hasNextLine()){
                 String[] values = line.split(",");
                 User user = makeUser(setArrangeInfo(headLine.split(","), values));
-                users.put(user.getUserName(), user);
+                users.add(user);
                 line = br.nextLine();
             }
         } catch (FileNotFoundException e) {

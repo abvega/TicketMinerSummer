@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class UserList {
     private static UserList instance;
     private final MakeUser makeUser = new MakeUser();
-    private final HashMap<String, User> users = makeUser.userFromCSV("CustomerListPA4FINAL.csv");
+    private final ArrayList<User> users = makeUser.userFromCSV("CustomerListPA4FINAL.csv");
     private final Scanner in = new Scanner(System.in);
 
     public static UserList getInstance(){
@@ -13,15 +14,7 @@ public class UserList {
         }
         return instance;
     }
-    public User getUser(String userName){
-        if(!userExist(userName)){
-            return null;
-        }
-        return users.get(userName);
-    }
-    public boolean userExist(String userName){
-        return users.containsKey(userName);
-    }
+
 
     public void modifyUser(User user){
         int input;
@@ -115,8 +108,5 @@ public class UserList {
      *  accepts user input of username and password.returns true if the username exists as well as the
      *  password matching what user input.
      */
-    public boolean auth(String userName, String passW){
-        User myUser = users.get(userName);
-        return users.containsKey(userName) && myUser.getPassWord().equalsIgnoreCase(passW);
-    }
+
 }
