@@ -60,8 +60,8 @@ public class Venue {
     public void setGaSeatPct(int pct){this.gaSeat = pct;}
     public void setExRsrvPct(int pct){this.exRsrv = pct;}
     public String toString(){
-        return  "Venue Name " +getName()+"\n"
-                +"Venue Capacity "+getCapacity()+"\n"
+        return  "TicketMiner.Venue Name " +getName()+"\n"
+                +"TicketMiner.Venue Capacity "+getCapacity()+"\n"
                 +"VIP Seats Left "+getVIPSeatRem()+"\n"
                 +"Gold Seats Left "+getGoldSeatRem()+"\n"
                 +"Silver Seats Left "+getSlvrSeatRem()+"\n"

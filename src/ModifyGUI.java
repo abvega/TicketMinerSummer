@@ -60,17 +60,16 @@ public class ModifyGUI implements Initializable {
     }
 
     /**
-     * Used to create an observable list from EventList ArrayList to display events on table
+     * Used to create an observable list from TicketMiner.EventList ArrayList to display events on table
      * @return observableList of events for tableview
      */
 
     private ObservableList<Event> getEvents(){
-        ObservableList<Event> events = FXCollections.observableArrayList(eventList.getArrayList());
-        return events;
+        return FXCollections.observableArrayList(eventList.getArrayList());
     }
 
     /**
-     * When called will set each table column to display the desired Event information
+     * When called will set each table column to display the desired TicketMiner.Event information
      */
     private void setValues(){
         eventID.setCellValueFactory(new PropertyValueFactory<>("ID"));

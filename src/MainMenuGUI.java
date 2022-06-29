@@ -29,6 +29,10 @@ public class MainMenuGUI {
         stage.show();
     }
     public void user(ActionEvent event) throws IOException{
-
+        scene = new Scene(FXMLLoader.load(getClass().getResource("LoginGUI.fxml")));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.sizeToScene();
+        stage.show();
     }
 }

@@ -1,8 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class MakeEvent {
@@ -18,17 +16,17 @@ public class MakeEvent {
                 line = br.nextLine();
             }
         }catch(FileNotFoundException f){
-            System.out.println("Event file not found " + f);
+            System.out.println("TicketMiner.Event file not found " + f);
         }
         return events;
     }
     public String[] setArrangeInfo(String[] headLine, String[] data){
         String[] tempD = new String[headLine.length];
         for(int i =0; i < headLine.length; i++){
-            if(headLine[i].equalsIgnoreCase("Event ID")){
+            if(headLine[i].equalsIgnoreCase("TicketMiner.Event ID")){
                 tempD[0] = data[i];
             }
-            else if(headLine[i].equalsIgnoreCase("Event Type")){
+            else if(headLine[i].equalsIgnoreCase("TicketMiner.Event Type")){
                 tempD[1] = data[i];
             }
             else if(headLine[i].equalsIgnoreCase("Name")){
@@ -55,13 +53,13 @@ public class MakeEvent {
             else if(headLine[i].equalsIgnoreCase("General Admission Price")){
                 tempD[9] = data[i];
             }
-            else if(headLine[i].equalsIgnoreCase("Venue Name")){
+            else if(headLine[i].equalsIgnoreCase("TicketMiner.Venue Name")){
                 tempD[10] = data[i];
             }
             else if(headLine[i].equalsIgnoreCase("Pct Seats Unavailable")){
                 tempD[11] = data[i];
             }
-            else if(headLine[i].equalsIgnoreCase("Venue Type")){
+            else if(headLine[i].equalsIgnoreCase("TicketMiner.Venue Type")){
                 tempD[12] = data[i];
             }
             else if(headLine[i].equalsIgnoreCase("Capacity")){

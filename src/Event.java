@@ -101,8 +101,8 @@ public class Event {
     public void setfWorks(boolean fWorks) {this.fWorks = fWorks;}
     public void setfWorkCost(int fWorkCost) {this.fWorkCost = fWorkCost;}
     public String toString(){
-        return "Event ID "+getID()+"\n"
-                +"Event Name "+getName()+"\n"
+        return "TicketMiner.Event ID "+getID()+"\n"
+                +"TicketMiner.Event Name "+getName()+"\n"
                 +"Date "+getDate()+"\n"
                 +"Time "+getTime()+"\n"
                 +"Fireworks "+getFireworks();
