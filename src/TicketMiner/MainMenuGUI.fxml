@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TicketMiner.MainMenuGUI">
+   <children>
+      <Label layoutX="155.0" layoutY="14.0" text="Please select Admin or User">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Button layoutX="237.0" layoutY="135.0" mnemonicParsing="false" onAction="#admin" text="Administrator">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="269.0" layoutY="200.0" mnemonicParsing="false" onAction="#user" text="User">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="273.0" layoutY="270.0" mnemonicParsing="false" onAction="#goBack" text="Exit">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

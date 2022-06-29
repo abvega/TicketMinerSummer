@@ -1,4 +1,4 @@
-TicketMiner.Event Type,Pct Seats Unavailable,Gold Price,Name,Capacity,Time,Reserved Extra Pct,TicketMiner.Venue Type,Date,VIP Price,General Admission Pct,Bronze Pct,Bronze Price,Silver Pct,General Admission Price,Silver Price,Fireworks Planned,TicketMiner.Venue Name,TicketMiner.Event ID,Cost,VIP Pct,Gold Pct,Fireworks Cost
+TicketMiner.TicketMiner.Event.Event Type,Pct Seats Unavailable,Gold Price,Name,Capacity,Time,Reserved Extra Pct,TicketMiner.TicketMiner.Event.Venue Type,Date,VIP Price,General Admission Pct,Bronze Pct,Bronze Price,Silver Pct,General Admission Price,Silver Price,Fireworks Planned,TicketMiner.TicketMiner.Event.Venue Name,TicketMiner.TicketMiner.Event.Event ID,Cost,VIP Pct,Gold Pct,Fireworks Cost
 Sport,0,26.1,UTEP Football 1,58000,7:05 PM,5,Stadium,9/4/21,30.45,45,20,18.85,15,14.5,21.75,No,Sun Bowl Stadium,1,681500,5,10,
 Sport,0,26.1,UTEP Football 2,58000,7:05 PM,5,Stadium,9/11/21,30.45,45,20,18.85,15,14.5,21.75,Yes,Sun Bowl Stadium,2,681500,5,10,16820
 Sport,0,26.1,UTEP Football 3,58000,7:05 PM,5,Stadium,9/18/21,30.45,45,20,18.85,15,14.5,21.75,No,Sun Bowl Stadium,3,681500,5,10,
