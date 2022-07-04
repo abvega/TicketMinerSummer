@@ -1,18 +1,24 @@
 package TicketMiner.Event;
 
-import javafx.beans.property.SimpleStringProperty;
+import java.math.BigDecimal;
+
+/**
+ * Event class lays blueprint for event objects to be used with TicketMiner. Contains functionality to manipulate
+ * Venue objects without referencing venue object directly.
+ * @author alexvega
+ */
 
 public class Event {
     private int ident;
     private String type;
-    private SimpleStringProperty name;
+    private String name;
     private String date;
     private String time;
-    private double vipPrc;
-    private double gldPrc;
-    private double slvrPrc;
-    private double brnzPrc;
-    private double gaPrc;
+    private BigDecimal vipPrc;
+    private BigDecimal gldPrc;
+    private BigDecimal slvrPrc;
+    private BigDecimal brnzPrc;
+    private BigDecimal gaPrc;
     private int vipQuant = 0;
     private int goldQuant = 0;
     private int slvrQuant = 0;
@@ -24,10 +30,10 @@ public class Event {
 
     public Event(){}
 
-    public Event(int iD, String type, String name, String date, String time, double vipPrc, double gldPrc, double slvrPrc, double brnzPrc, double gaPrc, Venue venue, boolean fWorks, double fWorkCost) {
+    public Event(int iD, String type, String name, String date, String time, BigDecimal vipPrc, BigDecimal gldPrc, BigDecimal slvrPrc, BigDecimal brnzPrc, BigDecimal gaPrc, Venue venue, boolean fWorks, double fWorkCost) {
         this.ident = iD;
         this.type = type;
-        this.name = new SimpleStringProperty(name);
+        this.name = name;
         this.date = date;
         this.time = time;
         this.vipPrc = vipPrc;
@@ -42,14 +48,14 @@ public class Event {
 
     public int getID() {return ident;}
     public String getType() {return type;}
-    public String getName() {return name.get();}
+    public String getName() {return name;}
     public String getDate() {return date;}
     public String getTime() {return time;}
-    public double getVipPrc() {return vipPrc;}
-    public double getGldPrc() {return gldPrc;}
-    public double getSlvrPrc() {return slvrPrc;}
-    public double getBrnzPrc() {return brnzPrc;}
-    public double getGaPrc() {return gaPrc;}
+    public BigDecimal getVipPrc() {return vipPrc;}
+    public BigDecimal getGldPrc() {return gldPrc;}
+    public BigDecimal getSlvrPrc() {return slvrPrc;}
+    public BigDecimal getBrnzPrc() {return brnzPrc;}
+    public BigDecimal getGaPrc() {return gaPrc;}
     public int getVipQuant() {return vipQuant;}
     public int getGoldQuant() {return goldQuant;}
     public int getSlvrQuant() {return slvrQuant;}
@@ -66,17 +72,36 @@ public class Event {
     public int getSlvrSeatRem(){return this.venue.getSlvrSeatRem();}
     public int getBrnzSeatRem(){return this.venue.getBrnzSeatRem();}
     public int getGaSeatRem(){return this.venue.getGaSeatRem();}
+    public int getTotalSeatsRem(){return (getCapacity() - (getTotalSeatSold()));}
     public int getExRsrvRem(){return this.venue.getExRsrvRem();}
-
-    public void setVipPrc(double vipPrc) {this.vipPrc = vipPrc;}
-    public void setGldPrc(double gldPrc) {this.gldPrc = gldPrc;}
-    public void setSlvrPrc(double slvrPrc) {this.slvrPrc = slvrPrc;}
-    public void setBrnzPrc(double brnzPrc) {this.brnzPrc = brnzPrc;}
-    public void setGaPrc(double gaPrc) {this.gaPrc = gaPrc;}
+    public int getVipPct(){return this.venue.getVipSeat();}
+    public int getGoldPct(){return this.venue.getGoldSeat();}
+    public int getSlvrPct(){return this.venue.getSlvrSeat();}
+    public int getBrnzPct(){return this.venue.getBrnzSeat();}
+    public int getGaPct(){return this.venue.getGaSeat();}
+    public int getExtPct(){return this.venue.getExRsrv();}
+    public BigDecimal getRevenue(){
+        return ((vipPrc.multiply(BigDecimal.valueOf(vipQuant)))
+                .add(gldPrc.multiply(BigDecimal.valueOf(goldQuant)))
+                .add(slvrPrc.multiply(BigDecimal.valueOf(slvrQuant)))
+                .add(brnzPrc.multiply(BigDecimal.valueOf(brnzQuant)))
+                .add(gaPrc.multiply(BigDecimal.valueOf(gaQuant))));
+    }
+    public BigDecimal getProfit(){
+        return getRevenue().subtract(BigDecimal.valueOf(getVenCost()).add(BigDecimal.valueOf(fWorkCost)));
+    }
+    public int getTotalSeatSold(){
+        return ((vipQuant+goldQuant+slvrQuant+brnzQuant+gaQuant));
+    }
+    public void setVipPrc(BigDecimal vipPrc) {this.vipPrc = vipPrc;}
+    public void setGldPrc(BigDecimal gldPrc) {this.gldPrc = gldPrc;}
+    public void setSlvrPrc(BigDecimal slvrPrc) {this.slvrPrc = slvrPrc;}
+    public void setBrnzPrc(BigDecimal brnzPrc) {this.brnzPrc = brnzPrc;}
+    public void setGaPrc(BigDecimal gaPrc) {this.gaPrc = gaPrc;}
     public void setfWorkCost(double fWorkCost) {this.fWorkCost = fWorkCost;}
     public void setiD(int iD) {this.ident = iD;}
     public void setType(String type) {this.type = type;}
-    public void setName(String name) {this.name = new SimpleStringProperty(name);}
+    public void setName(String name) {this.name = name;}
     public void setDate(String date) {this.date = date;}
     public void setTime(String time) {this.time = time;}
     public void setVipQuant(int vipQuant) {this.vipQuant = getVipQuant() + vipQuant;}
@@ -103,8 +128,8 @@ public class Event {
     public void setfWorks(boolean fWorks) {this.fWorks = fWorks;}
     public void setfWorkCost(int fWorkCost) {this.fWorkCost = fWorkCost;}
     public String toString(){
-        return "TicketMiner.TicketMiner.Event.Event ID "+getID()+"\n"
-                +"TicketMiner.TicketMiner.Event.Event Name "+getName()+"\n"
+        return "Event ID "+getID()+"\n"
+                +"Event Name "+getName()+"\n"
                 +"Date "+getDate()+"\n"
                 +"Time "+getTime()+"\n"
                 +"Fireworks "+getFireworks();

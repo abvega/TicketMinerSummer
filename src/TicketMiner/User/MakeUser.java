@@ -5,6 +5,9 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * Factory class that reads CSV and creates user objects
+ */
 public class MakeUser {
     public HashMap<String, User> userFromCSV(String fileName){
         HashMap<String, User> users = new HashMap<>();
@@ -22,6 +25,13 @@ public class MakeUser {
         }
         return users;
     }
+
+    /**
+     * method is used to organize CSV into a cohesive array no matter the column order of the CSV
+     * @param headLine contains titles of columns
+     * @param data contains actual data in the rows
+     * @return an organized String[]
+     */
     public String[] setArrangeInfo(String[] headLine, String[] data){
         String[] tempD = new String[headLine.length];
         for(int i =0; i< headLine.length;i++){
@@ -52,6 +62,12 @@ public class MakeUser {
         }
         return tempD;
     }
+
+    /**
+     * Takes organized array and assigns data from column to variables then creates user objects.
+     * @param data organized user String[].
+     * @return user objects.
+     */
     public User makeUser(String[] data){
         int iD = Integer.parseInt(data[0]);
         String firstName = data[1];

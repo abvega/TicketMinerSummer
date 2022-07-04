@@ -1,5 +1,9 @@
 package TicketMiner.User;
 
+/**
+ * User class blueprints for user objects
+ */
+
 public class User {
     private int iD;
     private String firstName;

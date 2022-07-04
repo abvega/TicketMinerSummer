@@ -2,20 +2,20 @@ package TicketMiner.Event;
 
 public class Venue {
     private String name;
-    private int capacity = 0;
-    private int vipSeat = 0;
-    private int goldSeat = 0;
-    private int slvrSeat = 0;
-    private int brnzSeat = 0;
-    private int gaSeat = 0;
-    private int exRsrv = 0;
-    private int venCost = 0;
-    private int vipSeatRem = 0;
-    private int goldSeatRem = 0;
-    private int slvrSeatRem = 0;
-    private int brnzSeatRem = 0;
-    private int gaSeatRem = 0;
-    private int exRsrvRem = 0;
+    private int capacity;
+    private int vipSeat;
+    private int goldSeat;
+    private int slvrSeat;
+    private int brnzSeat;
+    private int gaSeat;
+    private int exRsrv;
+    private int venCost;
+    private double vipSeatRem;
+    private double goldSeatRem;
+    private double slvrSeatRem;
+    private double brnzSeatRem;
+    private double gaSeatRem;
+    private double exRsrvRem;
 
 
     public Venue(String name, int capacity, int vipSeat, int goldSeat, int slvrSeat, int brnzSeat, int gaSeat, int exRsrv, int venCost) {
@@ -28,28 +28,34 @@ public class Venue {
         this.gaSeat = gaSeat;
         this.exRsrv = exRsrv;
         this.venCost = venCost;
-        this.vipSeatRem = ((vipSeat/100)*capacity);
-        this.goldSeatRem = ((goldSeat/100)*capacity);
-        this.slvrSeatRem = ((slvrSeat/100)*capacity);
-        this.brnzSeatRem = ((brnzSeat/100)*capacity);
-        this.gaSeatRem = ((gaSeat/100)*capacity);
-        this.exRsrvRem = ((exRsrv/100)*capacity);
+        this.vipSeatRem = ((vipSeat/100.0)*capacity);
+        this.goldSeatRem = ((goldSeat/100.0)*capacity);
+        this.slvrSeatRem = ((slvrSeat/100.0)*capacity);
+        this.brnzSeatRem = ((brnzSeat/100.0)*capacity);
+        this.gaSeatRem = ((gaSeat/100.0)*capacity);
+        this.exRsrvRem = ((exRsrv/100.0)*capacity);
     }
     public Venue(){}
 
     public String getName(){return name;}
+    public int getVipSeat(){return vipSeat;}
+    public int getGoldSeat(){return goldSeat;}
+    public int getSlvrSeat(){return slvrSeat;}
+    public int getBrnzSeat(){return brnzSeat;}
+    public int getGaSeat(){return gaSeat;}
+    public int getExRsrv(){return exRsrv;}
     public int getCapacity() {return capacity;}
-    public int getVIPSeatRem() {return vipSeatRem;}
-    public int getGoldSeatRem() {return goldSeatRem;}
-    public int getSlvrSeatRem() {return slvrSeatRem;}
-    public int getBrnzSeatRem() {return brnzSeatRem;}
-    public int getGaSeatRem() {return gaSeatRem;}
-    public int getExRsrvRem() {return exRsrvRem;}
+    public int getVIPSeatRem() {return (int)vipSeatRem;}
+    public int getGoldSeatRem() {return (int)goldSeatRem;}
+    public int getSlvrSeatRem() {return (int)slvrSeatRem;}
+    public int getBrnzSeatRem() {return (int)brnzSeatRem;}
+    public int getGaSeatRem() {return (int)gaSeatRem;}
+    public int getExRsrvRem() {return (int)exRsrvRem;}
     public int getVenCost() {return venCost;}
     public void setVenCost(int venCost){this.venCost = venCost;}
     public void setName(String name){this.name = name;}
     public void setCapacity(int capacity){this.capacity = capacity;}
-    public void setVipSeatRem(int vipSeatRem) {this.vipSeatRem = getVIPSeatRem() - vipSeatRem;}
+    public void setVipSeatRem(int vipSeatRem) {this.vipSeatRem = this.vipSeatRem - vipSeatRem;}
     public void setGoldSeatRem(int goldSeatRem) {this.goldSeatRem = getGoldSeatRem() - goldSeatRem;}
     public void setSlvrSeatRem(int slvrSeatRem) {this.slvrSeatRem = getSlvrSeatRem() - slvrSeatRem;}
     public void setBrnzSeatRem(int brnzSeatRem) {this.brnzSeatRem = getBrnzSeatRem() - brnzSeatRem;}
@@ -62,13 +68,13 @@ public class Venue {
     public void setGaSeatPct(int pct){this.gaSeat = pct;}
     public void setExRsrvPct(int pct){this.exRsrv = pct;}
     public String toString(){
-        return  "TicketMiner.TicketMiner.Event.Venue Name " +getName()+"\n"
-                +"TicketMiner.TicketMiner.Event.Venue Capacity "+getCapacity()+"\n"
-                +"VIP Seats Left "+getVIPSeatRem()+"\n"
-                +"Gold Seats Left "+getGoldSeatRem()+"\n"
-                +"Silver Seats Left "+getSlvrSeatRem()+"\n"
-                +"Bronze Seats Left " +getBrnzSeatRem()+"\n"
-                +"Extra Reserved Seats Left "+getExRsrvRem()+"\n"
-                +"Genaral Admission Seats Left "+getGaSeatRem()+"\n";
+        return  "Venue Name " +getName()+"\n"
+                +"Venue Capacity "+capacity+"\n"
+                +"VIP Seats Left "+ vipSeatRem +"\n"
+                +"Gold Seats Left "+goldSeatRem+"\n"
+                +"Silver Seats Left "+slvrSeatRem+"\n"
+                +"Bronze Seats Left " +brnzSeatRem+"\n"
+                +"Extra Reserved Seats Left "+exRsrvRem+"\n"
+                +"Genaral Admission Seats Left "+gaSeatRem+"\n";
     }
 }

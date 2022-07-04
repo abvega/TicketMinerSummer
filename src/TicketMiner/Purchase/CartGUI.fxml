@@ -48,9 +48,9 @@
         </rowConstraints>
          <children>
             <Label text="TicketMiner.Event.Event name" />
-            <Label text="TicketMiner.Event.Event date" GridPane.rowIndex="1" />
-            <Label text="TicketMiner.Event.Event time" GridPane.rowIndex="2" />
-            <Label text="TicketMiner.Event.Event location" GridPane.rowIndex="3" />
+            <Label text="Event date" GridPane.rowIndex="1" />
+            <Label text="Event time" GridPane.rowIndex="2" />
+            <Label text="Event location" GridPane.rowIndex="3" />
             <Label fx:id="eventName" text="name" GridPane.columnIndex="1" />
             <Label fx:id="eventDate" text="date" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label fx:id="eventTime" text="time" GridPane.columnIndex="1" GridPane.rowIndex="2" />

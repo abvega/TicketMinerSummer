@@ -10,15 +10,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.converter.BigDecimalStringConverter;
 import javafx.util.converter.BooleanStringConverter;
-import javafx.util.converter.DoubleStringConverter;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.*;
 
@@ -43,19 +46,55 @@ public class ModifyGUI implements Initializable {
     @FXML
     private TableColumn<Event,String> venueName;
     @FXML
-    private TableColumn<Event,Double> vipPrc;
+    private TableColumn<Event,BigDecimal> vipPrc;
     @FXML
-    private TableColumn<Event,Double> gldPrc;
+    private TableColumn<Event,BigDecimal> gldPrc;
     @FXML
-    private TableColumn<Event,Double> slvrPrc;
+    private TableColumn<Event,BigDecimal> slvrPrc;
     @FXML
-    private TableColumn<Event,Double> brnzPrc;
+    private TableColumn<Event,BigDecimal> brnzPrc;
     @FXML
-    private TableColumn<Event,Double> gaPrc;
+    private TableColumn<Event,BigDecimal> gaPrc;
     @FXML
     private TableColumn<Event,Boolean> fWorks;
-
+    @FXML
+    private Label vPct;
+    @FXML
+    private Label gPct;
+    @FXML
+    private Label sPct;
+    @FXML
+    private Label bPct;
+    @FXML
+    private Label gaPct;
+    @FXML
+    private Label vSeatSold;
+    @FXML
+    private Label gSeatSold;
+    @FXML
+    private Label sSeatSold;
+    @FXML
+    private Label bSeatSold;
+    @FXML
+    private Label gaSeatSold;
+    @FXML
+    private Label vSeatRem;
+    @FXML
+    private Label gSeatRem;
+    @FXML
+    private Label sSeatRem;
+    @FXML
+    private Label bSeatRem;
+    @FXML
+    private Label gaSeatRem;
+    @FXML
+    private Label revenue;
+    @FXML
+    private Label profit;
+    @FXML
+    private Label totalSeats;
     private EventList eventList = EventList.getInstance();
+    private Event selectedEvent;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -73,7 +112,7 @@ public class ModifyGUI implements Initializable {
     }
 
     /**
-     * When called will set each table column to display the desired TicketMiner.TicketMiner.Event.Event information
+     * When called will set each table column to display the desired TicketMiner Event information
      */
     private void setValues(){
         eventID.setCellValueFactory(new PropertyValueFactory<>("ID"));
@@ -89,6 +128,11 @@ public class ModifyGUI implements Initializable {
         gaPrc.setCellValueFactory(new PropertyValueFactory<>("gaPrc"));
         fWorks.setCellValueFactory(new PropertyValueFactory<>("Fireworks"));
         table.setItems(getEvents());
+        table.setOnMouseClicked((MouseEvent event)->{
+            if(event.getClickCount() > 0){
+                select();
+            }
+        });
     }
 
     /**
@@ -101,58 +145,169 @@ public class ModifyGUI implements Initializable {
         eventDate.setCellFactory(TextFieldTableCell.forTableColumn());
         eventTime.setCellFactory(TextFieldTableCell.forTableColumn());
         venueName.setCellFactory(TextFieldTableCell.forTableColumn());
-        vipPrc.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
-        gldPrc.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
-        slvrPrc.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
-        brnzPrc.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
-        gaPrc.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        vipPrc.setCellFactory(TextFieldTableCell.forTableColumn(new BigDecimalStringConverter()));
+        gldPrc.setCellFactory(TextFieldTableCell.forTableColumn(new BigDecimalStringConverter()));
+        slvrPrc.setCellFactory(TextFieldTableCell.forTableColumn(new BigDecimalStringConverter()));
+        brnzPrc.setCellFactory(TextFieldTableCell.forTableColumn(new BigDecimalStringConverter()));
+        gaPrc.setCellFactory(TextFieldTableCell.forTableColumn(new BigDecimalStringConverter()));
         fWorks.setCellFactory(TextFieldTableCell.forTableColumn(new BooleanStringConverter()));
     }
-    public void goBack(ActionEvent event) throws IOException {
+
+    /**
+     * Defines action taken when the back button is pressed on this screen
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    private void goBack(ActionEvent event) throws IOException {
         scene = new Scene(FXMLLoader.load(getClass().getResource("AdminPanelGUI.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.sizeToScene();
         stage.show();
     }
-    public void changeEventName(TableColumn.CellEditEvent editedCell) {
+
+    /**
+     * accepts selected cell on table and changes event name if user inputs new info into cell.
+     * @param editedCell
+     */
+    @FXML
+    private void changeEventName(TableColumn.CellEditEvent editedCell) {
         Event eventSelected = table.getSelectionModel().getSelectedItem();
         eventSelected.setName(editedCell.getNewValue().toString());
     }
-    public void changeType(TableColumn.CellEditEvent editedCell){
+    /**
+     * accepts selected cell on table and changes the event type if user inputs new info into cell.
+     * @param editedCell
+     */
+    @FXML
+    private void changeType(TableColumn.CellEditEvent editedCell){
         Event eventSelected = table.getSelectionModel().getSelectedItem();
         eventSelected.setType(editedCell.getNewValue().toString());
     }
-    public void changeDate(TableColumn.CellEditEvent editedCell){
+    /**
+     * accepts selected cell on table and changes date if user inputs new info into cell.
+     * @param editedCell
+     */
+    @FXML
+    private void changeDate(TableColumn.CellEditEvent editedCell){
         Event eventSelected = table.getSelectionModel().getSelectedItem();
         eventSelected.setDate(editedCell.getNewValue().toString());
     }
-    public void changeTime(TableColumn.CellEditEvent editedCell){
+    /**
+     * accepts selected cell on table and changes time if user inputs new info into cell.
+     * @param editedCell
+     */
+    @FXML
+    private void changeTime(TableColumn.CellEditEvent editedCell){
         Event eventSelected = table.getSelectionModel().getSelectedItem();
         eventSelected.setTime(editedCell.getNewValue().toString());
     }
-    public void changeVIP(TableColumn.CellEditEvent editedCell){
+    /**
+     * accepts selected cell on table and changes Venue name if user inputs new info into cell.
+     * @param editedCell
+     */
+    @FXML
+    private void changeVenueName(TableColumn.CellEditEvent editedCell){
         Event eventSelected = table.getSelectionModel().getSelectedItem();
-        eventSelected.setVipPrc((Double)editedCell.getNewValue());
+        eventSelected.setVenueName(editedCell.getNewValue().toString());
     }
-    public void changeGld(TableColumn.CellEditEvent editedCell){
+    /**
+     * accepts selected cell on table and changes vip price if user inputs new info into cell.
+     * @param editedCell
+     */
+    @FXML
+    private void changeVIP(TableColumn.CellEditEvent editedCell){
         Event eventSelected = table.getSelectionModel().getSelectedItem();
-        eventSelected.setGldPrc((Double)editedCell.getNewValue());
+        eventSelected.setVipPrc((BigDecimal) editedCell.getNewValue());
     }
-    public void changeSlvr(TableColumn.CellEditEvent editedCell){
+    /**
+     * accepts selected cell on table and changes gold price if user inputs new info into cell.
+     * @param editedCell
+     */
+    @FXML
+    private void changeGld(TableColumn.CellEditEvent editedCell){
         Event eventSelected = table.getSelectionModel().getSelectedItem();
-        eventSelected.setSlvrPrc((Double)editedCell.getNewValue());
+        eventSelected.setGldPrc((BigDecimal) editedCell.getNewValue());
     }
-    public void changeBrnz(TableColumn.CellEditEvent editedCell){
+    /**
+     * accepts selected cell on table and changes silver price if user inputs new info into cell.
+     * @param editedCell
+     */
+    @FXML
+    private void changeSlvr(TableColumn.CellEditEvent editedCell){
         Event eventSelected = table.getSelectionModel().getSelectedItem();
-        eventSelected.setBrnzPrc((Double)editedCell.getNewValue());
+        eventSelected.setSlvrPrc((BigDecimal) editedCell.getNewValue());
     }
-    public void changeGa(TableColumn.CellEditEvent editedCell){
+    /**
+     * accepts selected cell on table and changes bronze price if user inputs new info into cell.
+     * @param editedCell
+     */
+    @FXML
+    private void changeBrnz(TableColumn.CellEditEvent editedCell){
         Event eventSelected = table.getSelectionModel().getSelectedItem();
-        eventSelected.setGaPrc((Double)editedCell.getNewValue());
+        eventSelected.setBrnzPrc((BigDecimal) editedCell.getNewValue());
     }
-    public void changeFworks(TableColumn.CellEditEvent editedCell){
+    /**
+     * accepts selected cell on table and changes general admission price if user inputs new info into cell.
+     * @param editedCell
+     */
+    @FXML
+    private void changeGa(TableColumn.CellEditEvent editedCell){
+        Event eventSelected = table.getSelectionModel().getSelectedItem();
+        eventSelected.setGaPrc((BigDecimal) editedCell.getNewValue());
+    }
+    /**
+     * accepts selected cell on table and changes fireworks to true or false on user input.
+     * @param editedCell
+     */
+    @FXML
+    private void changeFworks(TableColumn.CellEditEvent editedCell){
         Event eventSelected = table.getSelectionModel().getSelectedItem();
         eventSelected.setfWorks((Boolean)editedCell.getNewValue());
+    }
+    private void select(){
+        setSeatPct();
+        setSeatSold();
+        setSeatRem();
+        setTotals();
+    }
+    private void setSeatPct(){
+        if(table.getSelectionModel().getSelectedItem() != null){
+            selectedEvent = table.getSelectionModel().getSelectedItem();
+            vPct.setText(Integer.toString(selectedEvent.getVipPct()));
+            gPct.setText(Integer.toString(selectedEvent.getGoldPct()));
+            sPct.setText(Integer.toString(selectedEvent.getSlvrPct()));
+            bPct.setText(Integer.toString(selectedEvent.getBrnzPct()));
+            gaPct.setText(Integer.toString(selectedEvent.getGaPct()));
+        }
+    }
+    private void setSeatSold(){
+        if(table.getSelectionModel().getSelectedItem() != null){
+            selectedEvent = table.getSelectionModel().getSelectedItem();
+            vSeatSold.setText(Integer.toString(selectedEvent.getVipQuant()));
+            gSeatSold.setText(Integer.toString(selectedEvent.getGoldQuant()));
+            sSeatSold.setText(Integer.toString(selectedEvent.getSlvrQuant()));
+            bSeatSold.setText(Integer.toString(selectedEvent.getBrnzQuant()));
+            gaSeatSold.setText(Integer.toString(selectedEvent.getGaQuant()));
+        }
+    }
+    private void setSeatRem(){
+        if(table.getSelectionModel().getSelectedItem() != null){
+            selectedEvent = table.getSelectionModel().getSelectedItem();
+            vSeatRem.setText(Integer.toString(selectedEvent.getVIPSeatRem()));
+            gSeatRem.setText(Integer.toString(selectedEvent.getGoldSeatRem()));
+            sSeatRem.setText(Integer.toString(selectedEvent.getSlvrSeatRem()));
+            bSeatRem.setText(Integer.toString(selectedEvent.getBrnzSeatRem()));
+            gaSeatRem.setText(Integer.toString(selectedEvent.getGaSeatRem()));
+            totalSeats.setText(Integer.toString(selectedEvent.getTotalSeatSold()));
+        }
+    }
+    private void setTotals(){
+        if(table.getSelectionModel().getSelectedItem() != null){
+            selectedEvent = table.getSelectionModel().getSelectedItem();
+            revenue.setText(selectedEvent.getRevenue().toString());
+            profit.setText(selectedEvent.getProfit().toString());
+        }
     }
 }

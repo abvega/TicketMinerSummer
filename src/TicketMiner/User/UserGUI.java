@@ -18,8 +18,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
+
+/**
+ * controller class for UserGUI.fxml
+ */
 
 public class UserGUI implements Initializable {
     @FXML
@@ -87,11 +93,19 @@ public class UserGUI implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setValues();
         setTotals();
-
     }
+
+    /**
+     *
+     * @return an observableList to populate tableview table
+     */
     private ObservableList<Event> getEvents(){
         return FXCollections.observableArrayList(eventList.getArrayList());
     }
+
+    /**
+     * method used to initiate the columns for the table
+     */
     private void setValues(){
         event.setCellValueFactory(new PropertyValueFactory<>("name"));
         date.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -109,16 +123,24 @@ public class UserGUI implements Initializable {
             }
         });
     }
+
+    /**
+     * When user selects an event method sets labels with ticket prices
+     */
     private void select(){
         if(table.getSelectionModel().getSelectedItem() != null){
             selectedEvent = table.getSelectionModel().getSelectedItem();
-            vipLabel.setText(Double.toString(selectedEvent.getVipPrc()));
-            gldLabel.setText(Double.toString(selectedEvent.getGldPrc()));
-            slvrLabel.setText(Double.toString(selectedEvent.getSlvrPrc()));
-            brnzLabel.setText(Double.toString(selectedEvent.getBrnzPrc()));
-            gaLabel.setText(Double.toString(selectedEvent.getGaPrc()));
+            vipLabel.setText(selectedEvent.getVipPrc().toString());
+            gldLabel.setText(selectedEvent.getGldPrc().toString());
+            slvrLabel.setText(selectedEvent.getSlvrPrc().toString());
+            brnzLabel.setText(selectedEvent.getBrnzPrc().toString());
+            gaLabel.setText(selectedEvent.getGaPrc().toString());
         }
     }
+
+    /**
+     * sets the total labels to default value
+     */
     public void setTotals(){
         vipTot.setText(Double.toString(0.00));
         gldTot.setText(Double.toString(0.00));
@@ -126,30 +148,65 @@ public class UserGUI implements Initializable {
         brnzTot.setText(Double.toString(0.00));
         gaTot.setText(Double.toString(0.00));
     }
+
+    /**
+     *
+     * @param userName used to define user who's logged in and display on scene
+     */
     public void setUser(String userName){
         this.logUser = userList.getUser(userName);
         userLabel.setText(logUser.getUserName());
         balance.setText(Double.toString(logUser.getMoneyTotal()));
     }
+
+    /**
+     * calculates the total cost of the user's chosen vip ticket amount and displays value
+     */
     public void setVipTot(){
         vipTot.setText(Double.toString(Double.parseDouble(vipLabel.getText())*Double.parseDouble(vipAmt.getText())));
     }
+
+    /**
+     * calculates the total cost of the user's chosen gold ticket amount and displays value
+     */
     public void setGldTot(){
         gldTot.setText(Double.toString(Double.parseDouble(gldLabel.getText()) * Double.parseDouble(gldAmt.getText())));
     }
+
+    /**
+     * calculates the total cost of the user's chosen silver ticket amount and displays value
+     */
     public void setSlvrTot(){
         slvrTot.setText(Double.toString(Double.parseDouble(slvrLabel.getText())*Double.parseDouble(slvrAmt.getText())));
     }
+
+    /**
+     * calculates the total cost of the user's chosen bronze ticket amount and displays value
+     */
     public void setBrnzTot(){
         brnzTot.setText(Double.toString(Double.parseDouble(brnzLabel.getText())*Double.parseDouble(brnzAmt.getText())));
     }
+
+    /**
+     * calculates the total cost of the user's chosen general admission ticket amount and displays value
+     */
     public void setGaTot(){
         gaTot.setText(Double.toString(Double.parseDouble(gaLabel.getText())*Double.parseDouble(gaAmt.getText())));
     }
+
+    /**
+     * takes totals of all ticket amounts and calculates a final total
+     */
     public void setTotTot(){
         totTot.setText(Double.toString(Double.parseDouble(vipTot.getText())+Double.parseDouble(gldTot.getText())
         +Double.parseDouble(slvrTot.getText())+Double.parseDouble(brnzTot.getText())+Double.parseDouble(gaTot.getText())));
     }
+
+    /**
+     * Method used to change scene to CartGUI.fxml after user confirms price of tickets.
+     * @param event
+     * @throws IOException
+     */
     public void confirmPurchase(ActionEvent event) throws IOException {
         if(!totTot.getText().equalsIgnoreCase("") || Integer.parseInt(totTot.getText()) > 0){
             FXMLLoader loader = new FXMLLoader();

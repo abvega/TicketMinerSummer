@@ -1,4 +1,7 @@
 package TicketMiner;
+/**
+ * Controller class for welcomeScreenGUI
+ */
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -17,10 +20,18 @@ public class GUIFrame {
     private Scene scene;
     private Parent root;
 
-    public void close(ActionEvent event){
+    /**
+     * When exit button is pressed, program terminates
+     */
+    public void close(){
         System.exit(0);
     }
 
+    /**
+     * When start button is pressed, this method changes scene to main menu
+     * @param event
+     * @throws IOException
+     */
     public void start(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("MainMenuGUI.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();

@@ -1,4 +1,7 @@
 package TicketMiner.Admin;
+/**
+ * Controller class for CreateNewGUI.fxml.
+ */
 
 import TicketMiner.Event.Event;
 import TicketMiner.Event.EventList;
@@ -13,6 +16,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Optional;
 
 
@@ -60,7 +65,13 @@ public class CreateNewGUI {
     @FXML
     private CheckBox fireworks;
 
-    public void newEvent(ActionEvent event){
+    /**
+     * when called verifies user input as valid, then creates new event and venue and adds to EventList ArrayList
+     * using admin inputs.
+     * @param event
+     */
+    @FXML
+    private void newEvent(ActionEvent event){
         try {
             int iD = events.size() + 1;
             String eventName = eventNameField.getText();
@@ -75,11 +86,11 @@ public class CreateNewGUI {
             int brnz = Integer.parseInt(brnzPct.getText());
             int ga = Integer.parseInt(gaPct.getText());
             int rsrv = Integer.parseInt(rsrvPct.getText());
-            double vipPrce = Double.parseDouble(vipPrice.getText());
-            double gldPrce = Double.parseDouble(gldPrice.getText());
-            double slvrPrce = Double.parseDouble(slvrPrice.getText());
-            double brnzPrce = Double.parseDouble(brnzPrice.getText());
-            double gaPrc = Double.parseDouble(gaPrice.getText());
+            BigDecimal vipPrce = BigDecimal.valueOf(Double.parseDouble(vipPrice.getText()));
+            BigDecimal gldPrce = BigDecimal.valueOf(Double.parseDouble(gldPrice.getText()));
+            BigDecimal slvrPrce = BigDecimal.valueOf(Double.parseDouble(slvrPrice.getText()));
+            BigDecimal brnzPrce = BigDecimal.valueOf(Double.parseDouble(brnzPrice.getText()));
+            BigDecimal gaPrc = BigDecimal.valueOf(Double.parseDouble(gaPrice.getText()));
             boolean fworks = fireworks.isSelected();
             if(divCheck(vip,gld,slvr,brnz,ga,rsrv)) {
                 Venue venue = new Venue(venueName, capacity, vip, gld, slvr, brnz, ga, rsrv, 0);
@@ -94,7 +105,14 @@ public class CreateNewGUI {
             alert.show();
         }
     }
-    public void goBack(ActionEvent event) throws IOException {
+
+    /**
+     * This function is called by the back button to go back to previous scene.
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    private void goBack(ActionEvent event) throws IOException {
         scene = new Scene(FXMLLoader.load(getClass().getResource("AdminPanelGUI.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -102,6 +120,11 @@ public class CreateNewGUI {
         stage.show();
 
     }
+
+    /**
+     * Creates an alert window to prompt user for additional input to confirm creation on new event object.
+     * @param event
+     */
     @FXML
     private void confirmCreate(Event event){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -114,6 +137,10 @@ public class CreateNewGUI {
         resetForm();
         alert.close();
     }
+
+    /**
+     * Resets all fields to default when invoked.
+     */
     @FXML
     private void resetForm(){
         eventNameField.setText("");
@@ -136,9 +163,27 @@ public class CreateNewGUI {
         gaPct.setText("45");
         rsrvPct.setText("5");
     }
+
+    /**
+     * Accepts percentage numbers from user input and checks if the total of all percentages equals 100
+     * @param vip percentage
+     * @param gld percentage
+     * @param slvr percentage
+     * @param brnz percentage
+     * @param ga percentage
+     * @param rsrv percentage
+     * @return false if total > 100 or if total < 100
+     * true if == 100
+     */
     private boolean divCheck(int vip, int gld, int slvr, int brnz, int ga, int rsrv) {
         return(vip + gld + slvr + brnz + ga + rsrv == 100);
     }
+
+    /**
+     * Creates and Alert window using header and body to set text on the Alert.
+     * @param header String used to set Alert header.
+     * @param body String used to set Alert content text.
+     */
     private void errorMessage(String header, String body){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(header);

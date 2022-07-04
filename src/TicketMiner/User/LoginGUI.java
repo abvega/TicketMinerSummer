@@ -1,4 +1,7 @@
 package TicketMiner.User;
+/**
+ * Controller class for LoginGUI
+ */
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,9 +55,6 @@ public class LoginGUI {
         alert.show();
     }
     private boolean checkCreds(String userName, String passWord){
-        if(!users.userExist(userName) || !users.getUser(userName).getPassWord().equals(passWord)){
-            return false;
-        }
-        return true;
+        return users.userExist(userName) && users.getUser(userName).getPassWord().equals(passWord);
     }
 }

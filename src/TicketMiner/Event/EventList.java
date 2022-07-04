@@ -3,11 +3,13 @@ package TicketMiner.Event;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Singleton class that creates an ArrayList of events to be used by the program.
+ */
 public class EventList {
     private static EventList instance = null;
     private final MakeEvent makeEvent = new MakeEvent();
-    private final ArrayList<Event> events = makeEvent.eventFromCSV("EventListPA4FINAL.csv");
-    private final Scanner in = new Scanner(System.in);
+    private final ArrayList<Event> events = makeEvent.eventFromCSV("EventListPA5FINAL.csv");
 
     public static EventList getInstance() {
         if(instance == null){

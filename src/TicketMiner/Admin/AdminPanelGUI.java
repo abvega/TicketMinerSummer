@@ -1,4 +1,7 @@
 package TicketMiner.Admin;
+/**
+ * Controller class for AdminPanelGUI
+ */
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +21,11 @@ public class AdminPanelGUI {
     private final int WINDOW_WIDTH = 350;
     private final int WINDOW_HEIGHT = 350;
 
+    /**
+     * Method changes scene to create new event function
+     * @param event
+     * @throws IOException
+     */
     public void createNew(ActionEvent event) throws IOException {
        scene = new Scene(FXMLLoader.load(getClass().getResource("CreateNewGUI.fxml")));
        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -25,6 +33,12 @@ public class AdminPanelGUI {
        stage.sizeToScene();
        stage.show();
     }
+
+    /**
+     * Changes scene to be able to modify certain events.
+     * @param event
+     * @throws IOException
+     */
     public void modify(ActionEvent event)throws IOException{
         scene = new Scene(FXMLLoader.load(getClass().getResource("ModifyGUI.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -32,6 +46,12 @@ public class AdminPanelGUI {
         stage.sizeToScene();
         stage.show();
     }
+
+    /**
+     * Changes scene to previous scene.
+     * @param event
+     * @throws IOException
+     */
     public void goBack(ActionEvent event)throws IOException{
         scene = new Scene(FXMLLoader.load(getClass().getResource("../MainMenuGUI.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();

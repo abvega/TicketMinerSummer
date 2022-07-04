@@ -2,9 +2,14 @@ package TicketMiner.Event;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Factory class that reads CSV and creates event objects
+ */
 public class MakeEvent {
     public ArrayList <Event> eventFromCSV(String fileName){
         ArrayList<Event> events = new ArrayList<>();
@@ -22,13 +27,20 @@ public class MakeEvent {
         }
         return events;
     }
+
+    /**
+     * method is used to organize CSV into a cohesive array no matter the column order of the CSV
+     * @param headLine contains titles of columns
+     * @param data actual row data
+     * @return an organized String[]
+     */
     public String[] setArrangeInfo(String[] headLine, String[] data){
         String[] tempD = new String[headLine.length];
         for(int i =0; i < headLine.length; i++){
-            if(headLine[i].equalsIgnoreCase("TicketMiner.TicketMiner.Event.Event ID")){
+            if(headLine[i].equalsIgnoreCase("Event ID")){
                 tempD[0] = data[i];
             }
-            else if(headLine[i].equalsIgnoreCase("TicketMiner.TicketMiner.Event.Event Type")){
+            else if(headLine[i].equalsIgnoreCase("Event Type")){
                 tempD[1] = data[i];
             }
             else if(headLine[i].equalsIgnoreCase("Name")){
@@ -55,13 +67,13 @@ public class MakeEvent {
             else if(headLine[i].equalsIgnoreCase("General Admission Price")){
                 tempD[9] = data[i];
             }
-            else if(headLine[i].equalsIgnoreCase("TicketMiner.TicketMiner.Event.Venue Name")){
+            else if(headLine[i].equalsIgnoreCase("Venue Name")){
                 tempD[10] = data[i];
             }
             else if(headLine[i].equalsIgnoreCase("Pct Seats Unavailable")){
                 tempD[11] = data[i];
             }
-            else if(headLine[i].equalsIgnoreCase("TicketMiner.TicketMiner.Event.Venue Type")){
+            else if(headLine[i].equalsIgnoreCase("Venue Type")){
                 tempD[12] = data[i];
             }
             else if(headLine[i].equalsIgnoreCase("Capacity")){
@@ -92,7 +104,7 @@ public class MakeEvent {
                 tempD[21] = data[i];
             }
             else if(headLine[i].equalsIgnoreCase("Fireworks Cost")){
-                if(data.length<headLine.length){
+                if(data[i].equalsIgnoreCase("")){
                     tempD[22] = "0.00";
                 }
                 else{tempD[22] = data[i];}
@@ -100,6 +112,12 @@ public class MakeEvent {
         }
         return tempD;
     }
+
+    /**
+     * Takes organized array and assigns data from column to variables then creates venue and event objects.
+     * @param data array of event data.
+     * @return A new created Event object.
+     */
     public Event makeEvent(String[] data){
         Venue myVenue;
         int iD = Integer.parseInt(data[0]);
@@ -107,11 +125,11 @@ public class MakeEvent {
         String eventName = data[2];
         String date = data[3];
         String time = data[4];
-        double vipPrc = Double.parseDouble(data[5]);
-        double goldPrc = Double.parseDouble(data[6]);
-        double slvrPrc = Double.parseDouble(data[7]);
-        double brnzPrc = Double.parseDouble(data[8]);
-        double gaPrc = Double.parseDouble(data[9]);
+        BigDecimal vipPrc = new BigDecimal(data[5]);
+        BigDecimal goldPrc = new BigDecimal(data[6]);
+        BigDecimal slvrPrc = new BigDecimal(data[7]);
+        BigDecimal brnzPrc = new BigDecimal(data[8]);
+        BigDecimal gaPrc = new BigDecimal(data[9]);
         String venueName = data[10];
         int pctUnav = Integer.parseInt(data[11]);
         String venueType = data[12];
