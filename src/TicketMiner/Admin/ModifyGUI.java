@@ -93,6 +93,8 @@ public class ModifyGUI implements Initializable {
     private Label profit;
     @FXML
     private Label totalSeats;
+    @FXML
+    private Label totSeatRem;
     private EventList eventList = EventList.getInstance();
     private Event selectedEvent;
 
@@ -290,6 +292,7 @@ public class ModifyGUI implements Initializable {
             sSeatSold.setText(Integer.toString(selectedEvent.getSlvrQuant()));
             bSeatSold.setText(Integer.toString(selectedEvent.getBrnzQuant()));
             gaSeatSold.setText(Integer.toString(selectedEvent.getGaQuant()));
+            totalSeats.setText(Integer.toString(selectedEvent.getTotalSeatSold()));
         }
     }
     private void setSeatRem(){
@@ -300,7 +303,7 @@ public class ModifyGUI implements Initializable {
             sSeatRem.setText(Integer.toString(selectedEvent.getSlvrSeatRem()));
             bSeatRem.setText(Integer.toString(selectedEvent.getBrnzSeatRem()));
             gaSeatRem.setText(Integer.toString(selectedEvent.getGaSeatRem()));
-            totalSeats.setText(Integer.toString(selectedEvent.getTotalSeatSold()));
+            totSeatRem.setText(Integer.toString(selectedEvent.getSeatsLeft()));
         }
     }
     private void setTotals(){

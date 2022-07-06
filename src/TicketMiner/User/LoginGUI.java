@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -20,20 +21,18 @@ public class LoginGUI {
     @FXML
     private TextField userName;
     @FXML
-    private TextField passWord;
+    private PasswordField passWord;
     @FXML
     private Button login;
     @FXML
     private Button back;
     @FXML
     private Button newUser;
-    private Scene scene;
-    private Stage stage;
     private UserList users = UserList.getInstance();
 
     public void goBack(ActionEvent event) throws IOException {
-        scene = new Scene(FXMLLoader.load(getClass().getResource("../MainMenuGUI.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("../MainMenuGUI.fxml")));
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.sizeToScene();
         stage.show();

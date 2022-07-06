@@ -142,11 +142,11 @@ public class UserGUI implements Initializable {
      * sets the total labels to default value
      */
     public void setTotals(){
-        vipTot.setText(Double.toString(0.00));
-        gldTot.setText(Double.toString(0.00));
-        slvrTot.setText(Double.toString(0.00));
-        brnzTot.setText(Double.toString(0.00));
-        gaTot.setText(Double.toString(0.00));
+        vipTot.setText(new BigDecimal("0.00").toString());
+        gldTot.setText(new BigDecimal("0.00").toString());
+        slvrTot.setText(new BigDecimal("0.00").toString());
+        brnzTot.setText(new BigDecimal("0.00").toString());
+        gaTot.setText(new BigDecimal("0.00").toString());
     }
 
     /**
@@ -163,43 +163,52 @@ public class UserGUI implements Initializable {
      * calculates the total cost of the user's chosen vip ticket amount and displays value
      */
     public void setVipTot(){
-        vipTot.setText(Double.toString(Double.parseDouble(vipLabel.getText())*Double.parseDouble(vipAmt.getText())));
+        vipTot.setText(new BigDecimal(vipLabel.getText())
+                .multiply(BigDecimal.valueOf(Integer.parseInt(vipAmt.getText()))).toString());
     }
 
     /**
      * calculates the total cost of the user's chosen gold ticket amount and displays value
      */
     public void setGldTot(){
-        gldTot.setText(Double.toString(Double.parseDouble(gldLabel.getText()) * Double.parseDouble(gldAmt.getText())));
+        gldTot.setText(new BigDecimal(gldLabel.getText())
+                .multiply(BigDecimal.valueOf(Integer.parseInt(gldAmt.getText()))).toString());
     }
 
     /**
      * calculates the total cost of the user's chosen silver ticket amount and displays value
      */
     public void setSlvrTot(){
-        slvrTot.setText(Double.toString(Double.parseDouble(slvrLabel.getText())*Double.parseDouble(slvrAmt.getText())));
+        slvrTot.setText(new BigDecimal(slvrLabel.getText())
+                .multiply(BigDecimal.valueOf(Integer.parseInt(slvrAmt.getText()))).toString());
     }
 
     /**
      * calculates the total cost of the user's chosen bronze ticket amount and displays value
      */
     public void setBrnzTot(){
-        brnzTot.setText(Double.toString(Double.parseDouble(brnzLabel.getText())*Double.parseDouble(brnzAmt.getText())));
+        brnzTot.setText(new BigDecimal(brnzLabel.getText())
+                .multiply(BigDecimal.valueOf(Integer.parseInt(brnzAmt.getText()))).toString());
     }
 
     /**
      * calculates the total cost of the user's chosen general admission ticket amount and displays value
      */
     public void setGaTot(){
-        gaTot.setText(Double.toString(Double.parseDouble(gaLabel.getText())*Double.parseDouble(gaAmt.getText())));
+        gaTot.setText(new BigDecimal(gaLabel.getText())
+                .multiply(BigDecimal.valueOf(Integer.parseInt(gaAmt.getText()))).toString());
     }
 
     /**
      * takes totals of all ticket amounts and calculates a final total
      */
     public void setTotTot(){
-        totTot.setText(Double.toString(Double.parseDouble(vipTot.getText())+Double.parseDouble(gldTot.getText())
-        +Double.parseDouble(slvrTot.getText())+Double.parseDouble(brnzTot.getText())+Double.parseDouble(gaTot.getText())));
+        //totTot.setText(Double.toString(Double.parseDouble(vipTot.getText())+Double.parseDouble(gldTot.getText())
+        //+Double.parseDouble(slvrTot.getText())+Double.parseDouble(brnzTot.getText())+Double.parseDouble(gaTot.getText())));
+        totTot.setText(new BigDecimal(vipTot.getText()).add(new BigDecimal(gldTot.getText()))
+                .add(new BigDecimal(slvrTot.getText())).add(new BigDecimal(brnzTot.getText()))
+                .add(new BigDecimal(gaTot.getText())).toString());
+
     }
 
     /**

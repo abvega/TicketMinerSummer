@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -27,17 +28,18 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="TicketMiner.Event.Event Name" />
-            <Label text="TicketMiner.Event.Event Type" GridPane.rowIndex="1" />
-            <Label text="TicketMiner.Event.Event Date" GridPane.rowIndex="2" />
-            <Label text="TicketMiner.Event.Event Time" GridPane.rowIndex="3" />
+            <Label text="Event Name" />
+            <Label text="Event Type" GridPane.rowIndex="1" />
+            <Label text="Event Date" GridPane.rowIndex="2" />
+            <Label text="Event Time" GridPane.rowIndex="3" />
             <TextField fx:id="eventNameField" GridPane.columnIndex="1" />
             <TextField fx:id="eventDateField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="eventTimeField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <CheckBox fx:id="fireworks" mnemonicParsing="false" text="Fireworks?" GridPane.rowIndex="4" />
             <TextField fx:id="eventTypeField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="venueNameField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label text="TicketMiner.Event.Venue Name" GridPane.rowIndex="5" />
+            <Label text="Venue Name" GridPane.rowIndex="5" />
+            <ComboBox fx:id="CBox" prefWidth="150.0" promptText="Venue List" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
       <Label layoutX="22.0" layoutY="187.0" text="Ticket Prices">
@@ -70,7 +72,7 @@
             <TextField fx:id="gaPrice" prefHeight="26.0" prefWidth="83.0" text="0.00" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
-      <Label layoutX="224.0" layoutY="14.0" text="Create New TicketMiner.Event.Event">
+      <Label layoutX="224.0" layoutY="14.0" text="Create New Event">
          <font>
             <Font size="25.0" />
          </font>
@@ -90,20 +92,20 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="TicketMiner.Event.Venue capacity" />
+            <Label text="Capacity" />
             <Label text="VIP seat %" GridPane.rowIndex="1" />
             <Label text="Gold seat %" GridPane.rowIndex="2" />
             <Label text="Silver seat %" GridPane.rowIndex="3" />
             <Label text="Bronze seat %" GridPane.rowIndex="4" />
             <Label text="General Admission %" GridPane.rowIndex="5" />
             <Label text="Extra reserved %" GridPane.rowIndex="6" />
-            <TextField fx:id="cap" GridPane.columnIndex="1" />
             <TextField fx:id="vipPct" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="gldPct" text="10" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="slvrPct" text="15" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="brnzPct" text="20" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="gaPct" text="45" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="rsrvPct" text="5" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label fx:id="cap" text="Label" GridPane.columnIndex="1" />
          </children>
       </GridPane>
       <ButtonBar layoutX="263.0" layoutY="346.0" prefHeight="40.0" prefWidth="200.0">

@@ -93,6 +93,9 @@ public class Event {
     public int getTotalSeatSold(){
         return ((vipQuant+goldQuant+slvrQuant+brnzQuant+gaQuant));
     }
+    public int getSeatsLeft(){
+        return (getCapacity() - getTotalSeatSold());
+    }
     public void setVipPrc(BigDecimal vipPrc) {this.vipPrc = vipPrc;}
     public void setGldPrc(BigDecimal gldPrc) {this.gldPrc = gldPrc;}
     public void setSlvrPrc(BigDecimal slvrPrc) {this.slvrPrc = slvrPrc;}

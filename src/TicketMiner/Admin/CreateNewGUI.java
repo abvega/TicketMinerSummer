@@ -3,29 +3,28 @@ package TicketMiner.Admin;
  * Controller class for CreateNewGUI.fxml.
  */
 
-import TicketMiner.Event.Event;
-import TicketMiner.Event.EventList;
-import TicketMiner.Event.Venue;
+import TicketMiner.Event.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 
-public class CreateNewGUI {
-    private Parent root;
-    private Scene scene;
-    private Stage stage;
+public class CreateNewGUI implements Initializable {
     private EventList events = EventList.getInstance();
+    private ArrayList<VenueSm> venues = new MakeVenueSm().venueFromCSV("VenueListPA3FINAL.csv");
     private final int WINDOW_WIDTH = 500;
     private final int WINDOW_HEIGHT = 500;
     @FXML
@@ -61,9 +60,11 @@ public class CreateNewGUI {
     @FXML
     private TextField rsrvPct;
     @FXML
-    private TextField cap;
+    private Label cap;
     @FXML
     private CheckBox fireworks;
+    @FXML
+    private ComboBox<String> CBox;
 
     /**
      * when called verifies user input as valid, then creates new event and venue and adds to EventList ArrayList
@@ -113,8 +114,8 @@ public class CreateNewGUI {
      */
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        scene = new Scene(FXMLLoader.load(getClass().getResource("AdminPanelGUI.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("AdminPanelGUI.fxml")));
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.sizeToScene();
         stage.show();
@@ -133,8 +134,8 @@ public class CreateNewGUI {
         Optional<ButtonType> result = alert.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK){
             events.add(event);
+            resetForm();
         }
-        resetForm();
         alert.close();
     }
 
@@ -180,7 +181,7 @@ public class CreateNewGUI {
     }
 
     /**
-     * Creates and Alert window using header and body to set text on the Alert.
+     * Creates an Alert window using header and body to set text on the Alert.
      * @param header String used to set Alert header.
      * @param body String used to set Alert content text.
      */
@@ -189,5 +190,20 @@ public class CreateNewGUI {
         alert.setHeaderText(header);
         alert.setContentText(body);
         alert.show();
+    }
+    private void setComboBox(){
+        for (VenueSm venue : venues) {
+            CBox.getItems().add(venue.getName());
+        }
+        CBox.setOnAction((event) ->{
+            int index = CBox.getSelectionModel().getSelectedIndex();
+            VenueSm venue = venues.get(index);
+            cap.setText(Integer.toString(venue.getCapacity()));
+        });
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setComboBox();
     }
 }
