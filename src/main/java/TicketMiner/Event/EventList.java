@@ -1,5 +1,8 @@
 package TicketMiner.Event;
 
+import TicketMiner.Dao.EventDaoImplementation;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,10 +11,19 @@ import java.util.Scanner;
  */
 public class EventList {
     private static EventList instance = null;
-    private final MakeEvent makeEvent = new MakeEvent();
-    private final ArrayList<Event> events = makeEvent.eventFromCSV("EventListPA5FINAL.csv");
+    //private final MakeEvent makeEvent = new MakeEvent();
+    //private final ArrayList<Event> events = makeEvent.eventFromCSV("EventListPA5FINAL.csv");
+    private final EventDaoImplementation dao = new EventDaoImplementation();
+    private ArrayList<Event> events = new ArrayList<>();
+    {
+        try {
+            events = dao.getEvents();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
-    public static EventList getInstance() {
+    public static EventList getInstance() throws SQLException {
         if(instance == null){
             instance = new EventList();
         }
@@ -26,7 +38,7 @@ public class EventList {
     public int size(){
         return events.size();
     }
-    public ArrayList<Event> getArrayList(){
+    public ArrayList<Event> getArrayList() throws SQLException {
         return getInstance().events;
     }
 }

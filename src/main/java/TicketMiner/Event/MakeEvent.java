@@ -143,7 +143,7 @@ public class MakeEvent {
         int rsrvPct = Integer.parseInt(data[20]);
         boolean fWorks = (data[21].equalsIgnoreCase("yes"));
         double fWorksCost = Double.parseDouble(data[22]);
-        myVenue = new Venue(venueName, capacity, vipPct, goldPct, slvrPct, brnzPct, gapPct,rsrvPct, venueCost);
+        myVenue = new Venue(venueName,venueType, capacity, vipPct, goldPct, slvrPct, brnzPct, gapPct,rsrvPct,pctUnav, venueCost);
         return new Event(iD, eventType, eventName, date, time, vipPrc, goldPrc, slvrPrc, brnzPrc, gaPrc, myVenue, fWorks,fWorksCost);
     }
 }

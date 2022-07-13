@@ -15,13 +15,21 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 
 public class CreateNewGUI implements Initializable {
-    private EventList events = EventList.getInstance();
+    private EventList events;
+    {
+        try {
+            events = EventList.getInstance();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     private ArrayList<VenueSm> venues = new MakeVenueSm().venueFromCSV("VenueListPA3FINAL.csv");
     private final int WINDOW_WIDTH = 500;
     private final int WINDOW_HEIGHT = 500;
@@ -89,7 +97,7 @@ public class CreateNewGUI implements Initializable {
             BigDecimal gaPrc = BigDecimal.valueOf(Double.parseDouble(gaPrice.getText()));
             boolean fworks = fireworks.isSelected();
             if(divCheck(vip,gld,slvr,brnz,ga,rsrv)) {
-                Venue venue = new Venue(venueName, capacity, vip, gld, slvr, brnz, ga, rsrv, 0);
+                Venue venue = new Venue(venueName,"type", capacity, vip, gld, slvr, brnz, ga, rsrv,0,0);
                 Event eve = new Event(iD, eventType, eventName, eventDate, eventTime, vipPrce, gldPrce, slvrPrce, brnzPrce, gaPrc, venue, fworks, 10000);
                 confirmCreate(eve);
             }

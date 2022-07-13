@@ -65,6 +65,7 @@ public class Event {
     public boolean getFireworks() {return fWorks;}
     public double getfWorkCost() {return fWorkCost;}
     public String getVenueName(){return this.venue.getName();}
+    public String getVenueType(){return this.venue.getVenType();}
     public int getCapacity(){return this.venue.getCapacity();}
     public int getVenCost(){return this.venue.getVenCost();}
     public int getVIPSeatRem(){return this.venue.getVIPSeatRem();}
@@ -80,6 +81,7 @@ public class Event {
     public int getBrnzPct(){return this.venue.getBrnzSeat();}
     public int getGaPct(){return this.venue.getGaSeat();}
     public int getExtPct(){return this.venue.getExRsrv();}
+    public int getUnavail(){return this.venue.getUnavail();}
     public BigDecimal getRevenue(){
         return ((vipPrc.multiply(BigDecimal.valueOf(vipQuant)))
                 .add(gldPrc.multiply(BigDecimal.valueOf(goldQuant)))
@@ -114,6 +116,7 @@ public class Event {
     public void setGaQuant(int gaQuant) {this.gaQuant = getGaQuant() + gaQuant;}
     public void setVenue(Venue venue) {this.venue = venue;}
     public void setVenueName(String name){this.venue.setName(name);}
+    public void setVenueType(String type){this.venue.setVenType(type);}
     public void setVenueCapacity(int capacity){this.venue.setCapacity(capacity);}
     public void setVenueCost(int venCost){this.venue.setVenCost(venCost);}
     public void setVIPSeatRem(int seats){this.venue.setVipSeatRem(seats);}
@@ -128,6 +131,7 @@ public class Event {
     public void setBrnzSeatPct(int pct){this.venue.setBrnzSeatPct(pct);}
     public void setGaSeatPct(int pct){this.venue.setGaSeatPct(pct);}
     public void setExRsrvPct(int pct){this.venue.setExRsrvPct(pct);}
+    public void setUnavail(int pct){this.venue.setUnavailPct(pct);}
     public void setfWorks(boolean fWorks) {this.fWorks = fWorks;}
     public void setfWorkCost(int fWorkCost) {this.fWorkCost = fWorkCost;}
     public String toString(){

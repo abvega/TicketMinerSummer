@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
@@ -85,13 +86,24 @@ public class UserGUI implements Initializable {
     @FXML
     private Label totTot;
 
-    private EventList eventList = EventList.getInstance();
+    private EventList eventList;
+    {
+        try {
+            eventList = EventList.getInstance();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     private UserList userList = UserList.getInstance();
     private User logUser;
     private Event selectedEvent;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setValues();
+        try {
+            setValues();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         setTotals();
     }
 
@@ -99,14 +111,14 @@ public class UserGUI implements Initializable {
      *
      * @return an observableList to populate tableview table
      */
-    private ObservableList<Event> getEvents(){
+    private ObservableList<Event> getEvents() throws SQLException {
         return FXCollections.observableArrayList(eventList.getArrayList());
     }
 
     /**
      * method used to initiate the columns for the table
      */
-    private void setValues(){
+    private void setValues() throws SQLException {
         event.setCellValueFactory(new PropertyValueFactory<>("name"));
         date.setCellValueFactory(new PropertyValueFactory<>("date"));
         time.setCellValueFactory(new PropertyValueFactory<>("time"));

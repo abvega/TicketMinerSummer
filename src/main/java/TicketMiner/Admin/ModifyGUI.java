@@ -23,12 +23,13 @@ import javafx.util.converter.BooleanStringConverter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.*;
 
 /**
  * Controller class for modifyGUI fxml
  */
-public class ModifyGUI implements Initializable {
+public class ModifyGUI implements Initializable{
     private Scene scene;
     private Stage stage;
     @FXML
@@ -95,12 +96,25 @@ public class ModifyGUI implements Initializable {
     private Label totalSeats;
     @FXML
     private Label totSeatRem;
-    private EventList eventList = EventList.getInstance();
+    private EventList eventList;
+
+    {
+        try {
+            eventList = EventList.getInstance();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private Event selectedEvent;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setValues();
+        try {
+            setValues();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         editable();
     }
 
@@ -109,14 +123,14 @@ public class ModifyGUI implements Initializable {
      * @return observableList of events for tableview
      */
 
-    private ObservableList<Event> getEvents(){
+    private ObservableList<Event> getEvents() throws SQLException {
         return FXCollections.observableArrayList(eventList.getArrayList());
     }
 
     /**
      * When called will set each table column to display the desired TicketMiner Event information
      */
-    private void setValues(){
+    private void setValues() throws SQLException {
         eventID.setCellValueFactory(new PropertyValueFactory<>("ID"));
         eventName.setCellValueFactory(new PropertyValueFactory<>("name"));
         eventType.setCellValueFactory(new PropertyValueFactory<>("type"));
