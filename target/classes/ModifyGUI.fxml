@@ -100,6 +100,7 @@
                         <Label fx:id="profit" text="total after costs" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                         <Label fx:id="totalSeats" text="total seats sold" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <Label fx:id="totSeatRem" text="total seats left" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                        <Button mnemonicParsing="false" onAction="#delete" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="6" />
                      </children>
                   </GridPane>
                </children>

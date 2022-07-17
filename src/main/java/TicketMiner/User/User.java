@@ -1,5 +1,7 @@
 package TicketMiner.User;
 
+import java.math.BigDecimal;
+
 /**
  * User class blueprints for user objects
  */
@@ -8,7 +10,7 @@ public class User {
     private int iD;
     private String firstName;
     private String lastName;
-    private double moneyTotal;
+    private BigDecimal moneyTotal;
     private int tixBought;
     private boolean isMember;
     private String userName;
@@ -17,7 +19,7 @@ public class User {
 
     public User(){}
 
-    public User(int iD, String firstName, String lastName, double moneyTotal, boolean isMember, String userName, String passWord) {
+    public User(int iD, String firstName, String lastName, BigDecimal moneyTotal, boolean isMember, String userName, String passWord) {
         this.iD = iD;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -32,7 +34,7 @@ public class User {
     public int getiD() {return iD;}
     public String getFirstName() {return firstName;}
     public String getLastName() {return lastName;}
-    public double getMoneyTotal() {return moneyTotal;}
+    public BigDecimal getMoneyTotal() {return moneyTotal;}
     public int getTixBought() {return tixBought;}
     public boolean getIsMember() {return isMember;}
     public String getUserName() {return userName;}
@@ -42,10 +44,10 @@ public class User {
     public void setiD(int iD) {this.iD = iD;}
     public void setFirstName(String firstName) {this.firstName = firstName;}
     public void setLastName(String lastName) {this.lastName = lastName;}
-    public void setMoneyTotal(double moneyTotal) {this.moneyTotal = this.moneyTotal - moneyTotal;}
+    public void setMoneyTotal(BigDecimal moneyTotal) {this.moneyTotal = this.moneyTotal.subtract(moneyTotal);}
     public void setTixBought(int tixBought) {this.tixBought = getTixBought() + tixBought;}
     public void setMember(boolean member) {isMember = member;}
-    public void setIserName(String userName) {this.userName = userName;}
+    public void setUserName(String userName) {this.userName = userName;}
     public void setPassWord(String passWord) {this.passWord = passWord;}
     public void setAmtSavd(int amtSavd) {this.amtSavd = getAmtSavd() + amtSavd;}
     public String toString(){

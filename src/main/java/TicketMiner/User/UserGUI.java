@@ -168,7 +168,7 @@ public class UserGUI implements Initializable {
     public void setUser(String userName){
         this.logUser = userList.getUser(userName);
         userLabel.setText(logUser.getUserName());
-        balance.setText(Double.toString(logUser.getMoneyTotal()));
+        balance.setText(logUser.getMoneyTotal().toString());
     }
 
     /**

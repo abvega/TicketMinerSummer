@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+
+import java.math.BigDecimal;
 import java.util.Optional;
 
 public class CartGUI {
@@ -55,7 +57,7 @@ public class CartGUI {
     public void setUser(User userIn){
         this.user = userIn;
         userLabel.setText(user.getUserName());
-        userBalance.setText(Double.toString(user.getMoneyTotal()));
+        userBalance.setText(user.getMoneyTotal().toString());
     }
 
     /**
@@ -131,7 +133,7 @@ public class CartGUI {
                 "Total price: " + total.getText()+"\n"+
                 "Username: " + user.getUserName()+"\n"+
                 "Balance: " + user.getMoneyTotal()+"\n"+
-                "New Balance after transaction: "+ (user.getMoneyTotal() - Double.parseDouble(total.getText()));
+                "New Balance after transaction: "+ (user.getMoneyTotal().subtract(new BigDecimal(total.getText())));
     }
 
     /**
@@ -139,13 +141,13 @@ public class CartGUI {
      * users account. If false, alert window pops up telling user they have insufficient funds.
      */
     private void recordTransaction() {
-        if (user.getMoneyTotal() > Double.parseDouble(total.getText())) {
+        if(user.getMoneyTotal().compareTo(new BigDecimal(total.getText())) > 0) {
             event.setVipQuant(Integer.parseInt(vipQ.getText()));
             event.setGoldQuant(Integer.parseInt(gldQ.getText()));
             event.setSlvrQuant(Integer.parseInt(slvrQ.getText()));
             event.setBrnzQuant(Integer.parseInt(brnzQ.getText()));
             event.setGaQuant(Integer.parseInt(gaQ.getText()));
-            user.setMoneyTotal(Double.parseDouble(total.getText()));
+            user.setMoneyTotal(BigDecimal.valueOf(Double.parseDouble(total.getText())));
             user.setTixBought(totalTickets());
         }
         else{
