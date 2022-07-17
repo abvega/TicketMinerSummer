@@ -3,6 +3,7 @@ package TicketMiner.Admin;
  * Controller class for CreateNewGUI.fxml.
  */
 
+import TicketMiner.Dao.EventDaoImplementation;
 import TicketMiner.Event.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,14 +23,7 @@ import java.util.ResourceBundle;
 
 
 public class CreateNewGUI implements Initializable {
-    private EventList events;
-    {
-        try {
-            events = EventList.getInstance();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    private final EventDaoImplementation dao = new EventDaoImplementation();
     private ArrayList<VenueSm> venues = new MakeVenueSm().venueFromCSV("VenueListPA3FINAL.csv");
     private final int WINDOW_WIDTH = 500;
     private final int WINDOW_HEIGHT = 500;
@@ -69,6 +63,10 @@ public class CreateNewGUI implements Initializable {
     private CheckBox fireworks;
     @FXML
     private ComboBox<String> CBoxVen;
+
+    public CreateNewGUI() throws SQLException {
+    }
+
     /**
      * when called verifies user input as valid, then creates new event and venue and adds to EventList ArrayList
      * using admin inputs.
@@ -77,7 +75,6 @@ public class CreateNewGUI implements Initializable {
     @FXML
     private void newEvent(ActionEvent event){
         try {
-            int iD = events.size() + 1;
             String eventName = eventNameField.getText();
             String eventType = eventTypeField.getText();
             String eventDate = eventDateField.getText();
@@ -98,8 +95,13 @@ public class CreateNewGUI implements Initializable {
             boolean fworks = fireworks.isSelected();
             if(divCheck(vip,gld,slvr,brnz,ga,rsrv)) {
                 Venue venue = new Venue(venueName,"type", capacity, vip, gld, slvr, brnz, ga, rsrv,0,0);
-                Event eve = new Event(iD, eventType, eventName, eventDate, eventTime, vipPrce, gldPrce, slvrPrce, brnzPrce, gaPrc, venue, fworks, 10000);
-                confirmCreate(eve);
+                Event eve = new Event(eventType, eventName, eventDate, eventTime, vipPrce, gldPrce, slvrPrce, brnzPrce, gaPrc, venue, fworks, 10000);
+                try {
+                    confirmCreate(eve);
+                }catch(SQLException e){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Cannot create new event");
+                }
             }
             else{
                 errorMessage("Percentage total error","Seat percentages must total 100%");
@@ -130,13 +132,13 @@ public class CreateNewGUI implements Initializable {
      * @param event
      */
     @FXML
-    private void confirmCreate(Event event){
+    private void confirmCreate(Event event) throws SQLException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("This event will be added to the database: ");
         alert.setContentText(event.toString());
         Optional<ButtonType> result = alert.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK){
-            events.add(event);
+            dao.add(event);
             resetForm();
         }
         alert.close();
@@ -194,7 +196,7 @@ public class CreateNewGUI implements Initializable {
         alert.show();
     }
     private void setComboBox(){
-        for (VenueSm venue : venues) {
+        for(VenueSm venue: venues){
             CBoxVen.getItems().add(venue.getName());
         }
         CBoxVen.setOnAction((event) ->{
@@ -203,6 +205,7 @@ public class CreateNewGUI implements Initializable {
             cap.setText(Integer.toString(venue.getCapacity()));
         });
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

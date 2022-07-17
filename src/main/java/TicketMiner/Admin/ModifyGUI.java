@@ -1,5 +1,6 @@
 package TicketMiner.Admin;
 
+import TicketMiner.Dao.EventDaoImplementation;
 import TicketMiner.Event.Event;
 import TicketMiner.Event.EventList;
 import javafx.collections.FXCollections;
@@ -11,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -96,17 +98,12 @@ public class ModifyGUI implements Initializable{
     private Label totalSeats;
     @FXML
     private Label totSeatRem;
-    private EventList eventList;
-
-    {
-        try {
-            eventList = EventList.getInstance();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    private final EventDaoImplementation dao = new EventDaoImplementation();
 
     private Event selectedEvent;
+
+    public ModifyGUI() throws SQLException {
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -124,7 +121,7 @@ public class ModifyGUI implements Initializable{
      */
 
     private ObservableList<Event> getEvents() throws SQLException {
-        return FXCollections.observableArrayList(eventList.getArrayList());
+        return FXCollections.observableArrayList(dao.getEvents());
     }
 
     /**
@@ -325,6 +322,18 @@ public class ModifyGUI implements Initializable{
             selectedEvent = table.getSelectionModel().getSelectedItem();
             revenue.setText(selectedEvent.getRevenue().toString());
             profit.setText(selectedEvent.getProfit().toString());
+        }
+    }
+    @FXML
+    private void delete(){
+        EventDaoImplementation dao = new EventDaoImplementation();
+        if(table.getSelectionModel().getSelectedItem() != null){
+            selectedEvent = table.getSelectionModel().getSelectedItem();
+            try {
+                dao.delete(selectedEvent.getID());
+            }catch(SQLException e){
+                System.out.println("Cannot delete");
+            }
         }
     }
 }

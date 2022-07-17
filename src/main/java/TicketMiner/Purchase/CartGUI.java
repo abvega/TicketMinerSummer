@@ -65,7 +65,7 @@ public class CartGUI {
     public void setEvent(Event eventIn){
         this.event = eventIn;
         eventName.setText(event.getName());
-        eventDate.setText(event.getDate());
+        eventDate.setText(event.getDate().toString());
         eventTime.setText(event.getTime());
         venueName.setText(event.getVenueName());
     }

@@ -9,40 +9,38 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class EventDaoImplementation implements EventDao{
+public class EventDaoImplementation implements Dao{
     static Connection con = SQLConnection.getConnection();
     @Override
-    public int add(Event event) throws SQLException {
-        String query ="insert into events(Event_Type, Pct_Seats_Unavailable, Gold_Price, General_Admission_Price," +
-                "Capacity, Time, Reserved_Extra_Pct, Venue_Type, Data, VIP_Price, General_Admission_Pct, Name, Bronze_Pct" +
-                "Cost, Bronze_Price, Fireworks_Cost, Silver_Pct, Silver_Price, Fireworks_Planned, Venue_Name, " +
-                "Event_ID, VIP_Pct, Gold_Pct) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    public void add(Event event) throws SQLException {
+        String query ="INSERT INTO events(Name, Event_Type, Date, Time, Venue_Name, Venue_Type, Capacity, Cost, VIP_Pct, " +
+                "Gold_Pct, Silver_Pct, Bronze_Pct, General_Admission_Pct, Reserved_Extra_Pct, Pct_Seats_Unavailable, " +
+                "Vip_Price, Gold_Price, Silver_Price, Bronze_Price, General_Admission_Price, Fireworks_Planned, Fireworks_Cost) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? , ?, ? , ?, ?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, event.getType());
-        ps.setInt(2, event.getUnavail());
-        ps.setBigDecimal(3, event.getGldPrc());
-        ps.setBigDecimal(4, event.getGaPrc());
-        ps.setInt(5, event.getCapacity());
-        ps.setString(6, event.getTime());
-        ps.setInt(7, event.getExtPct());
-        ps.setString(8,event.getVenueType());
-        ps.setString(9, event.getDate());
-        ps.setBigDecimal(10, event.getVipPrc());
-        ps.setInt(11,event.getGaPct());
-        ps.setString(12, event.getName());
-        ps.setInt(13,event.getBrnzPct());
-        ps.setInt(14, event.getVenCost());
-        ps.setBigDecimal(15, event.getBrnzPrc());
-        ps.setDouble(16, event.getfWorkCost());
-        ps.setInt(17, event.getSlvrPct());
+        ps.setString(1, event.getName());
+        ps.setString(2, event.getType());
+        ps.setString(3, event.getDate());
+        ps.setString(4, event.getTime());
+        ps.setString(5, event.getVenueName());
+        ps.setString(6, event.getVenueType());
+        ps.setInt(7, event.getCapacity());
+        ps.setInt(8,event.getVenCost());
+        ps.setInt(9, (event.getVipPct()));
+        ps.setInt(10, event.getGoldPct());
+        ps.setInt(11,event.getSlvrPct());
+        ps.setInt(12, event.getBrnzPct());
+        ps.setInt(13,event.getGaPct());
+        ps.setInt(14, event.getExtPct());
+        ps.setInt(15, event.getUnavail());
+        ps.setBigDecimal(16, event.getVipPrc());
+        ps.setBigDecimal(17, event.getGldPrc());
         ps.setBigDecimal(18, event.getSlvrPrc());
-        ps.setBoolean(19, event.getFireworks());
-        ps.setString(20, event.getVenueName());
-        ps.setInt(21, event.getID());
-        ps.setInt(22, event.getVipPct());
-        ps.setInt(23, event.getGoldPct());
-        int n = ps.executeUpdate();
-        return n;
+        ps.setBigDecimal(19, event.getBrnzPrc());
+        ps.setBigDecimal(20, event.getGaPrc());
+        ps.setBoolean(21, event.getFireworks());
+        ps.setInt(22, event.getfWorkCost());
+        ps.executeUpdate();
     }
 
     @Override
@@ -50,6 +48,7 @@ public class EventDaoImplementation implements EventDao{
         String query = "delete from events where Event_ID =?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1, id);
+        ps.executeUpdate();
     }
 
     @Override
@@ -73,7 +72,7 @@ public class EventDaoImplementation implements EventDao{
             event.setBrnzPrc(rs.getBigDecimal("Bronze_Price"));
             event.setGaPrc(rs.getBigDecimal("General_Admission_Price"));
             event.setfWorks(rs.getBoolean("Fireworks_Planned"));
-            event.setfWorkCost(rs.getDouble("Fireworks_Cost"));
+            event.setfWorkCost(rs.getInt("Fireworks_Cost"));
             event.setVenue(new Venue());
             event.setVenueName(rs.getString("Venue_Name"));
             event.setVenueCapacity(rs.getInt("Capacity"));
@@ -112,7 +111,7 @@ public class EventDaoImplementation implements EventDao{
             event.setBrnzPrc(rs.getBigDecimal("Bronze_Price"));
             event.setGaPrc(rs.getBigDecimal("General_Admission_Price"));
             event.setfWorks(rs.getBoolean("Fireworks_Planned"));
-            event.setfWorkCost(rs.getDouble("Fireworks_Cost"));
+            event.setfWorkCost(rs.getInt("Fireworks_Cost"));
             event.setVenueName(rs.getString("Venue_Name"));
             event.setVenueCapacity(rs.getInt("Capacity"));
             event.setVIPSeatPct(rs.getInt("VIP_Pct"));
@@ -129,34 +128,34 @@ public class EventDaoImplementation implements EventDao{
 
     @Override
     public void update(Event event) throws SQLException {
-        String query = "update event set Event_Type=?, Pct_Seats_Unavailable=?, Gold_Price=?, General_Admission_Price=?," +
-                "Capacity=?, Time=?, Reserved_Extra_Pct=?, Venue_Type=?, Data=?, VIP_Price=?, General_Admission_Pct=?, Name=?, Bronze_Pct=?" +
-                "Cost=?, Bronze_Price=?, Fireworks_Cost=?, Silver_Pct=?, Silver_Price=?, Fireworks_Planned=?, Venue_Name=?," +
-                "Event_ID=?, VIP_Pct=?, Gold_Pct=?";
+        String query = "update event set Name = ?, Type = ?, Date = ?, Time = ?, Venue_Name = ?, Venue_Type = ?, Capacity = ?, Cost = ?," +
+                "VIP_Pct = ?, Gold_Pct = ?, Silver_Pct = ?, Bronze_Pct = ?, General_Admission_Pct =?, Reserved_Extra_Pct = ?," +
+                "Pct_Seats_Unavailable = ?, VIP_Price = ?, Gold_Price, =?, Silver_Price = ?, Bronze_Price = ?, General_Admission_Price =?," +
+                "Fireworks_Planned = ?, Fireworks_Cost = ?, Event_ID = ? ";
         PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, event.getType());
-        ps.setInt(2, event.getUnavail());
-        ps.setBigDecimal(3, event.getGldPrc());
-        ps.setBigDecimal(4, event.getGaPrc());
-        ps.setInt(5, event.getCapacity());
-        ps.setString(6, event.getTime());
-        ps.setInt(7, event.getExtPct());
-        ps.setString(8,event.getVenueType());
-        ps.setString(9, event.getDate());
-        ps.setBigDecimal(10, event.getVipPrc());
-        ps.setInt(11,event.getGaPct());
-        ps.setString(12, event.getName());
-        ps.setInt(13,event.getBrnzPct());
-        ps.setInt(14, event.getVenCost());
-        ps.setBigDecimal(15, event.getBrnzPrc());
-        ps.setDouble(16, event.getfWorkCost());
-        ps.setInt(17, event.getSlvrPct());
+        ps.setString(1, event.getName());
+        ps.setString(2, event.getType());
+        ps.setString(3, event.getDate());
+        ps.setString(4, event.getTime());
+        ps.setString(5, event.getVenueName());
+        ps.setString(6, event.getVenueType());
+        ps.setInt(7, event.getCapacity());
+        ps.setInt(8,event.getVenCost());
+        ps.setInt(9, event.getVipPct());
+        ps.setInt(10, event.getGoldPct());
+        ps.setInt(11,event.getSlvrPct());
+        ps.setInt(12, event.getBrnzPct());
+        ps.setInt(13,event.getGaPct());
+        ps.setInt(14, event.getExtPct());
+        ps.setInt(15, event.getUnavail());
+        ps.setBigDecimal(16, event.getVipPrc());
+        ps.setBigDecimal(17, event.getGldPrc());
         ps.setBigDecimal(18, event.getSlvrPrc());
-        ps.setBoolean(19, event.getFireworks());
-        ps.setString(20, event.getVenueName());
-        ps.setInt(21, event.getID());
-        ps.setInt(22, event.getVipPct());
-        ps.setInt(23, event.getGoldPct());
+        ps.setBigDecimal(19, event.getBrnzPrc());
+        ps.setBigDecimal(20, event.getGaPrc());
+        ps.setBoolean(21, event.getFireworks());
+        ps.setInt(22, event.getfWorkCost());
+        ps.setInt(23, event.getID());
         ps.executeUpdate();
     }
 }

@@ -1,9 +1,9 @@
+
 package TicketMiner.Event;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -142,8 +142,8 @@ public class MakeEvent {
         int gapPct = Integer.parseInt(data[19]);
         int rsrvPct = Integer.parseInt(data[20]);
         boolean fWorks = (data[21].equalsIgnoreCase("yes"));
-        double fWorksCost = Double.parseDouble(data[22]);
+        int fWorksCost = Integer.parseInt(data[22]);
         myVenue = new Venue(venueName,venueType, capacity, vipPct, goldPct, slvrPct, brnzPct, gapPct,rsrvPct,pctUnav, venueCost);
-        return new Event(iD, eventType, eventName, date, time, vipPrc, goldPrc, slvrPrc, brnzPrc, gaPrc, myVenue, fWorks,fWorksCost);
+        return new Event(eventType, eventName, date, time, vipPrc, goldPrc, slvrPrc, brnzPrc, gaPrc, myVenue, fWorks,fWorksCost);
     }
 }

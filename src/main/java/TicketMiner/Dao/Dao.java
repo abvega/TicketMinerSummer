@@ -5,15 +5,15 @@ import TicketMiner.Event.Event;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface EventDao {
-    public int add(Event event)
+public interface Dao {
+    void add(Event event)
         throws SQLException;
-    public void delete(int id)
+    void delete(int id)
         throws SQLException;
-    public Event getEvent(int id)
+    Event getEvent(int id)
         throws SQLException;
-    public ArrayList<Event> getEvents()
+    ArrayList<Event> getEvents()
         throws SQLException;
-    public void update(Event event)
+    void update(Event event)
         throws SQLException;
 }

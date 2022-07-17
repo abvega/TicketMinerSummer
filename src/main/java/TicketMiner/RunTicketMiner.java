@@ -2,6 +2,7 @@ package TicketMiner;
 
 import TicketMiner.Dao.EventDaoImplementation;
 import TicketMiner.Event.Event;
+import TicketMiner.Event.Venue;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,7 +17,7 @@ public class RunTicketMiner extends Application{
             launch(args);
         }
         @Override
-        public void start(Stage primaryStage) throws IOException {
+        public void start(Stage primaryStage){
             try{
                 Parent root = FXMLLoader.load(getClass().getResource("/WelcomeScreen.fxml"));
                 Scene scene1 = new Scene(root);

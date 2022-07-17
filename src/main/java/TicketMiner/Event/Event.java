@@ -1,6 +1,7 @@
 package TicketMiner.Event;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 
 /**
  * Event class lays blueprint for event objects to be used with TicketMiner. Contains functionality to manipulate
@@ -26,12 +27,11 @@ public class Event {
     private int gaQuant = 0;
     private Venue venue;
     private boolean fWorks;
-    private double fWorkCost;
+    private int fWorkCost;
 
     public Event(){}
 
-    public Event(int iD, String type, String name, String date, String time, BigDecimal vipPrc, BigDecimal gldPrc, BigDecimal slvrPrc, BigDecimal brnzPrc, BigDecimal gaPrc, Venue venue, boolean fWorks, double fWorkCost) {
-        this.ident = iD;
+    public Event(String type, String name, String date, String time, BigDecimal vipPrc, BigDecimal gldPrc, BigDecimal slvrPrc, BigDecimal brnzPrc, BigDecimal gaPrc, Venue venue, boolean fWorks, int fWorkCost) {
         this.type = type;
         this.name = name;
         this.date = date;
@@ -63,7 +63,7 @@ public class Event {
     public int getGaQuant() {return gaQuant;}
     public Venue getVenue() {return venue;}
     public boolean getFireworks() {return fWorks;}
-    public double getfWorkCost() {return fWorkCost;}
+    public int getfWorkCost() {return fWorkCost;}
     public String getVenueName(){return this.venue.getName();}
     public String getVenueType(){return this.venue.getVenType();}
     public int getCapacity(){return this.venue.getCapacity();}
@@ -103,7 +103,6 @@ public class Event {
     public void setSlvrPrc(BigDecimal slvrPrc) {this.slvrPrc = slvrPrc;}
     public void setBrnzPrc(BigDecimal brnzPrc) {this.brnzPrc = brnzPrc;}
     public void setGaPrc(BigDecimal gaPrc) {this.gaPrc = gaPrc;}
-    public void setfWorkCost(double fWorkCost) {this.fWorkCost = fWorkCost;}
     public void setiD(int iD) {this.ident = iD;}
     public void setType(String type) {this.type = type;}
     public void setName(String name) {this.name = name;}
