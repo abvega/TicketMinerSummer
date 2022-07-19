@@ -1,8 +1,6 @@
 package TicketMiner.Event;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-
 /**
  * Event class lays blueprint for event objects to be used with TicketMiner. Contains functionality to manipulate
  * Venue objects without referencing venue object directly.

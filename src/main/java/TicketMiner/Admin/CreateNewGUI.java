@@ -4,6 +4,7 @@ package TicketMiner.Admin;
  */
 
 import TicketMiner.Dao.EventDaoImplementation;
+import TicketMiner.Dao.VenueDao;
 import TicketMiner.Event.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
@@ -24,7 +26,8 @@ import java.util.ResourceBundle;
 
 public class CreateNewGUI implements Initializable {
     private final EventDaoImplementation dao = new EventDaoImplementation();
-    private ArrayList<VenueSm> venues = new MakeVenueSm().venueFromCSV("VenueListPA3FINAL.csv");
+    private final VenueDao vDao = new VenueDao();
+    private ArrayList<VenueSm> venues = vDao.getVenues();
     private final int WINDOW_WIDTH = 500;
     private final int WINDOW_HEIGHT = 500;
     @FXML
@@ -58,11 +61,17 @@ public class CreateNewGUI implements Initializable {
     @FXML
     private TextField rsrvPct;
     @FXML
+    private TextField unavailPct;
+    @FXML
     private Label cap;
     @FXML
     private CheckBox fireworks;
     @FXML
     private ComboBox<String> CBoxVen;
+    @FXML
+    private Label venType;
+    @FXML
+    private Label venCost;
 
     public CreateNewGUI() throws SQLException {
     }
@@ -80,21 +89,24 @@ public class CreateNewGUI implements Initializable {
             String eventDate = eventDateField.getText();
             String eventTime = eventTimeField.getText();
             String venueName = CBoxVen.getSelectionModel().getSelectedItem();
+            String venueType = venType.getText();
             int capacity = Integer.parseInt(cap.getText());
+            int vCost = Integer.parseInt(venCost.getText());
             int vip = Integer.parseInt(vipPct.getText());
             int gld = Integer.parseInt(gldPct.getText());
             int slvr = Integer.parseInt(slvrPct.getText());
             int brnz = Integer.parseInt(brnzPct.getText());
             int ga = Integer.parseInt(gaPct.getText());
             int rsrv = Integer.parseInt(rsrvPct.getText());
+            int unaPct = Integer.parseInt(unavailPct.getText());
             BigDecimal vipPrce = BigDecimal.valueOf(Double.parseDouble(vipPrice.getText()));
             BigDecimal gldPrce = BigDecimal.valueOf(Double.parseDouble(gldPrice.getText()));
             BigDecimal slvrPrce = BigDecimal.valueOf(Double.parseDouble(slvrPrice.getText()));
             BigDecimal brnzPrce = BigDecimal.valueOf(Double.parseDouble(brnzPrice.getText()));
             BigDecimal gaPrc = BigDecimal.valueOf(Double.parseDouble(gaPrice.getText()));
             boolean fworks = fireworks.isSelected();
-            if(divCheck(vip,gld,slvr,brnz,ga,rsrv)) {
-                Venue venue = new Venue(venueName,"type", capacity, vip, gld, slvr, brnz, ga, rsrv,0,0);
+            if(divCheck(vip,gld,slvr,brnz,ga,rsrv, unaPct)) {
+                Venue venue = new Venue(venueName,venueType, capacity, vip, gld, slvr, brnz, ga, rsrv,unaPct,vCost);
                 Event eve = new Event(eventType, eventName, eventDate, eventTime, vipPrce, gldPrce, slvrPrce, brnzPrce, gaPrc, venue, fworks, 10000);
                 try {
                     confirmCreate(eve);
@@ -167,6 +179,7 @@ public class CreateNewGUI implements Initializable {
         brnzPct.setText("20");
         gaPct.setText("45");
         rsrvPct.setText("5");
+        unavailPct.setText("0");
     }
 
     /**
@@ -180,8 +193,8 @@ public class CreateNewGUI implements Initializable {
      * @return false if total > 100 or if total < 100
      * true if == 100
      */
-    private boolean divCheck(int vip, int gld, int slvr, int brnz, int ga, int rsrv) {
-        return(vip + gld + slvr + brnz + ga + rsrv == 100);
+    private boolean divCheck(int vip, int gld, int slvr, int brnz, int ga, int rsrv, int unaPct) {
+        return(vip + gld + slvr + brnz + ga + rsrv + unaPct == 100);
     }
 
     /**
@@ -203,6 +216,8 @@ public class CreateNewGUI implements Initializable {
             int index = CBoxVen.getSelectionModel().getSelectedIndex();
             VenueSm venue = venues.get(index);
             cap.setText(Integer.toString(venue.getCapacity()));
+            venType.setText(venue.getType());
+            venCost.setText(Integer.toString(venue.getCost()));
         });
     }
 

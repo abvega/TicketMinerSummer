@@ -158,4 +158,7 @@ public class EventDaoImplementation implements Dao{
         ps.setInt(23, event.getID());
         ps.executeUpdate();
     }
+    public int getSize() throws SQLException {
+        return getEvents().size();
+    }
 }

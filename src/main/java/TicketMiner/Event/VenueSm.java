@@ -8,7 +8,7 @@ public class VenueSm {
     private String type;
     private int capacity;
     private int concertCap;
-    private BigDecimal cost;
+    private int cost;
     private int vipPct;
     private int gldPct;
     private int slvrPct;
@@ -16,7 +16,7 @@ public class VenueSm {
     private int gaPct;
     private int exRsrv;
 
-    public VenueSm(int id, String name, String type, int capacity, int concertCap, BigDecimal cost, int vipPct, int gldPct, int slvrPct, int brnzPct, int gaPct, int exRsrv) {
+    public VenueSm(int id, String name, String type, int capacity, int concertCap, int cost, int vipPct, int gldPct, int slvrPct, int brnzPct, int gaPct, int exRsrv) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -55,7 +55,7 @@ public class VenueSm {
         return concertCap;
     }
 
-    public BigDecimal getCost() {
+    public int getCost() {
         return cost;
     }
 
@@ -103,7 +103,7 @@ public class VenueSm {
         this.concertCap = concertCap;
     }
 
-    public void setCost(BigDecimal cost) {
+    public void setCost(int cost) {
         this.cost = cost;
     }
 

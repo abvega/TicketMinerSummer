@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-
 import java.math.BigDecimal;
 import java.util.Optional;
 
@@ -67,7 +66,7 @@ public class CartGUI {
     public void setEvent(Event eventIn){
         this.event = eventIn;
         eventName.setText(event.getName());
-        eventDate.setText(event.getDate().toString());
+        eventDate.setText(event.getDate());
         eventTime.setText(event.getTime());
         venueName.setText(event.getVenueName());
     }
