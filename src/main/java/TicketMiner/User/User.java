@@ -10,7 +10,7 @@ public class User {
     private int iD;
     private String firstName;
     private String lastName;
-    private BigDecimal moneyTotal;
+    private BigDecimal moneyTotal = new BigDecimal("0.00");
     private int tixBought;
     private boolean isMember;
     private String userName;
@@ -44,7 +44,8 @@ public class User {
     public void setiD(int iD) {this.iD = iD;}
     public void setFirstName(String firstName) {this.firstName = firstName;}
     public void setLastName(String lastName) {this.lastName = lastName;}
-    public void setMoneyTotal(BigDecimal moneyTotal) {this.moneyTotal = this.moneyTotal.subtract(moneyTotal);}
+    public void setMoney(BigDecimal money){this.moneyTotal = money;}
+    public void newMoneyTotal(BigDecimal moneyTotal) {this.moneyTotal = this.moneyTotal.subtract(moneyTotal);}
     public void setTixBought(int tixBought) {this.tixBought = getTixBought() + tixBought;}
     public void setMember(boolean member) {isMember = member;}
     public void setUserName(String userName) {this.userName = userName;}

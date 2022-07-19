@@ -3,6 +3,7 @@ package TicketMiner.User;
  * Controller class for LoginGUI
  */
 
+import TicketMiner.Dao.UserDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class LoginGUI {
     @FXML
@@ -28,7 +30,7 @@ public class LoginGUI {
     private Button back;
     @FXML
     private Button newUser;
-    private UserList users = UserList.getInstance();
+    private UserDao users = new UserDao();
 
     public void goBack(ActionEvent event) throws IOException {
         Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/MainMenuGUI.fxml")));
@@ -37,7 +39,7 @@ public class LoginGUI {
         stage.sizeToScene();
         stage.show();
     }
-    public void login(ActionEvent event) throws IOException {
+    public void login(ActionEvent event) throws IOException, SQLException {
         if(checkCreds(userName.getText(), passWord.getText())){
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/UserGUI.fxml"));
@@ -53,7 +55,7 @@ public class LoginGUI {
         Alert alert = new Alert(Alert.AlertType.WARNING, "Username and/or password do not exist");
         alert.show();
     }
-    private boolean checkCreds(String userName, String passWord){
-        return users.userExist(userName) && users.getUser(userName).getPassWord().equals(passWord);
+    private boolean checkCreds(String userName, String passWord)throws SQLException{
+        return users.authenticate(userName, passWord);
     }
 }

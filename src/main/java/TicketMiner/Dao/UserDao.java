@@ -29,10 +29,10 @@ public class UserDao {
         ps.setInt(1, id);
         ps.executeUpdate();
     }
-    public User getUser(int id) throws SQLException {
-        String query = "select * from users where ID =?";
+    public User getUser(String userName) throws SQLException {
+        String query = "select * from users where Username =?";
         PreparedStatement ps = con.prepareStatement(query);
-        ps.setInt(1, id);
+        ps.setString(1, userName);
         User user = new User();
         ResultSet rs = ps.executeQuery();
         boolean check = false;
@@ -41,7 +41,7 @@ public class UserDao {
             user.setiD(rs.getInt("ID"));
             user.setUserName(rs.getString("Username"));
             user.setPassWord(rs.getString("Password"));
-            user.setMoneyTotal(rs.getBigDecimal("Money_Available"));
+            user.setMoney(rs.getBigDecimal("Money_Available"));
             user.setFirstName(rs.getString("First_Name"));
             user.setLastName(rs.getString("Last_Name"));
             user.setTixBought(rs.getInt("Tickets_Purchased"));
@@ -64,7 +64,7 @@ public class UserDao {
             user.setiD(rs.getInt("ID"));
             user.setUserName(rs.getString("Username"));
             user.setPassWord(rs.getString("Password"));
-            user.setMoneyTotal(rs.getBigDecimal("Money_Available"));
+            user.setMoney(rs.getBigDecimal("Money_Available"));
             user.setFirstName(rs.getString("First_Name"));
             user.setLastName(rs.getString("Last_Name"));
             user.setTixBought(rs.getInt("Tickets_Purchased"));
@@ -87,5 +87,11 @@ public class UserDao {
         ps.setInt(7, user.getTixBought());
         ps.setBoolean(8, user.getIsMember());
         ps.executeUpdate();
+    }
+    public boolean authenticate(String userName, String password) throws SQLException {
+        if(getUser(userName)==null){
+            return false;
+        }
+        return getUser(userName).getPassWord().equals(password);
     }
 }

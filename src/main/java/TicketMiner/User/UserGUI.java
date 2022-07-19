@@ -1,7 +1,9 @@
 package TicketMiner.User;
 
+import TicketMiner.Dao.EventDaoImplementation;
+import TicketMiner.Dao.UserDao;
 import TicketMiner.Event.Event;
-import TicketMiner.Event.EventList;
+
 import TicketMiner.Purchase.CartGUI;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -85,16 +87,9 @@ public class UserGUI implements Initializable {
     private Label gaTot;
     @FXML
     private Label totTot;
-
-    private EventList eventList;
-    {
-        try {
-            eventList = EventList.getInstance();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    private UserList userList = UserList.getInstance();
+    private EventDaoImplementation eventList = new EventDaoImplementation();
+    private UserDao userList = new UserDao();
+    //private UserList userList = UserList.getInstance();
     private User logUser;
     private Event selectedEvent;
     @Override
@@ -112,7 +107,7 @@ public class UserGUI implements Initializable {
      * @return an observableList to populate tableview table
      */
     private ObservableList<Event> getEvents() throws SQLException {
-        return FXCollections.observableArrayList(eventList.getArrayList());
+        return FXCollections.observableArrayList(eventList.getEvents());
     }
 
     /**
@@ -165,7 +160,7 @@ public class UserGUI implements Initializable {
      *
      * @param userName used to define user who's logged in and display on scene
      */
-    public void setUser(String userName){
+    public void setUser(String userName) throws SQLException {
         this.logUser = userList.getUser(userName);
         userLabel.setText(logUser.getUserName());
         balance.setText(logUser.getMoneyTotal().toString());

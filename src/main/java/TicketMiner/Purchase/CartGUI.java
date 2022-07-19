@@ -147,7 +147,7 @@ public class CartGUI {
             event.setSlvrQuant(Integer.parseInt(slvrQ.getText()));
             event.setBrnzQuant(Integer.parseInt(brnzQ.getText()));
             event.setGaQuant(Integer.parseInt(gaQ.getText()));
-            user.setMoneyTotal(BigDecimal.valueOf(Double.parseDouble(total.getText())));
+            user.newMoneyTotal(BigDecimal.valueOf(Double.parseDouble(total.getText())));
             user.setTixBought(totalTickets());
         }
         else{
