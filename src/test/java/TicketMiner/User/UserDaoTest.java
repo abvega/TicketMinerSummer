@@ -1,3 +1,5 @@
+package TicketMiner.User;
+
 import TicketMiner.Dao.UserDao;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
