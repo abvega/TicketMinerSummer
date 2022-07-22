@@ -119,8 +119,7 @@ public class CreateNewGUI implements Initializable {
                 errorMessage("Percentage total error","Seat percentages must total 100%");
             }
         }catch(IllegalArgumentException e){
-           Alert alert = new Alert(Alert.AlertType.ERROR, "Use proper inputs please.");
-            alert.show();
+            errorMessage("improper inputs", "Please check inputs then try again");
         }
     }
 

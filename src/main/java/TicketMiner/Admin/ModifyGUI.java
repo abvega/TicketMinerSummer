@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -100,7 +101,7 @@ public class ModifyGUI implements Initializable{
 
     private Event selectedEvent;
 
-    public ModifyGUI() throws SQLException {
+    public ModifyGUI() {
     }
 
     @Override
@@ -108,6 +109,7 @@ public class ModifyGUI implements Initializable{
         try {
             setValues();
         } catch (SQLException e) {
+            errorMessage("SQL error", "Cannot initialize table");
             e.printStackTrace();
         }
         editable();
@@ -186,6 +188,12 @@ public class ModifyGUI implements Initializable{
     private void changeEventName(TableColumn.CellEditEvent editedCell) {
         Event eventSelected = table.getSelectionModel().getSelectedItem();
         eventSelected.setName(editedCell.getNewValue().toString());
+        try {
+            dao.update(eventSelected);
+        } catch (SQLException e) {
+            errorMessage("Sql Error", "Cannot change event name");
+            e.printStackTrace();
+        }
     }
     /**
      * accepts selected cell on table and changes the event type if user inputs new info into cell.
@@ -195,6 +203,11 @@ public class ModifyGUI implements Initializable{
     private void changeType(TableColumn.CellEditEvent editedCell){
         Event eventSelected = table.getSelectionModel().getSelectedItem();
         eventSelected.setType(editedCell.getNewValue().toString());
+        try{
+            dao.update(eventSelected);
+        }catch(SQLException e){
+            errorMessage("Sql Error", "Cannot change event type");
+        }
     }
     /**
      * accepts selected cell on table and changes date if user inputs new info into cell.
@@ -204,6 +217,11 @@ public class ModifyGUI implements Initializable{
     private void changeDate(TableColumn.CellEditEvent editedCell){
         Event eventSelected = table.getSelectionModel().getSelectedItem();
         eventSelected.setDate(editedCell.getNewValue().toString());
+        try{
+            dao.update(eventSelected);
+        }catch(SQLException e){
+            errorMessage("Sql Error", "Cannot change event date");
+        }
     }
     /**
      * accepts selected cell on table and changes time if user inputs new info into cell.
@@ -213,6 +231,11 @@ public class ModifyGUI implements Initializable{
     private void changeTime(TableColumn.CellEditEvent editedCell){
         Event eventSelected = table.getSelectionModel().getSelectedItem();
         eventSelected.setTime(editedCell.getNewValue().toString());
+        try{
+            dao.update(eventSelected);
+        }catch(SQLException e){
+            errorMessage("Sql Error", "Cannot change event time");
+        }
     }
     /**
      * accepts selected cell on table and changes Venue name if user inputs new info into cell.
@@ -222,6 +245,11 @@ public class ModifyGUI implements Initializable{
     private void changeVenueName(TableColumn.CellEditEvent editedCell){
         Event eventSelected = table.getSelectionModel().getSelectedItem();
         eventSelected.setVenueName(editedCell.getNewValue().toString());
+        try{
+            dao.update(eventSelected);
+        }catch(SQLException e){
+            errorMessage("Sql Error", "Cannot change event venue name");
+        }
     }
     /**
      * accepts selected cell on table and changes vip price if user inputs new info into cell.
@@ -231,6 +259,11 @@ public class ModifyGUI implements Initializable{
     private void changeVIP(TableColumn.CellEditEvent editedCell){
         Event eventSelected = table.getSelectionModel().getSelectedItem();
         eventSelected.setVipPrc((BigDecimal) editedCell.getNewValue());
+        try{
+            dao.update(eventSelected);
+        }catch(SQLException e){
+            errorMessage("Sql Error", "Cannot change VIP price");
+        }
     }
     /**
      * accepts selected cell on table and changes gold price if user inputs new info into cell.
@@ -240,6 +273,11 @@ public class ModifyGUI implements Initializable{
     private void changeGld(TableColumn.CellEditEvent editedCell){
         Event eventSelected = table.getSelectionModel().getSelectedItem();
         eventSelected.setGldPrc((BigDecimal) editedCell.getNewValue());
+        try{
+            dao.update(eventSelected);
+        }catch(SQLException e){
+            errorMessage("Sql Error", "Cannot change Gold price");
+        }
     }
     /**
      * accepts selected cell on table and changes silver price if user inputs new info into cell.
@@ -249,6 +287,11 @@ public class ModifyGUI implements Initializable{
     private void changeSlvr(TableColumn.CellEditEvent editedCell){
         Event eventSelected = table.getSelectionModel().getSelectedItem();
         eventSelected.setSlvrPrc((BigDecimal) editedCell.getNewValue());
+        try{
+            dao.update(eventSelected);
+        }catch(SQLException e){
+            errorMessage("Sql Error", "Cannot change Silver price");
+        }
     }
     /**
      * accepts selected cell on table and changes bronze price if user inputs new info into cell.
@@ -258,6 +301,11 @@ public class ModifyGUI implements Initializable{
     private void changeBrnz(TableColumn.CellEditEvent editedCell){
         Event eventSelected = table.getSelectionModel().getSelectedItem();
         eventSelected.setBrnzPrc((BigDecimal) editedCell.getNewValue());
+        try{
+            dao.update(eventSelected);
+        }catch(SQLException e){
+            errorMessage("Sql Error", "Cannot change Bronze price");
+        }
     }
     /**
      * accepts selected cell on table and changes general admission price if user inputs new info into cell.
@@ -267,6 +315,11 @@ public class ModifyGUI implements Initializable{
     private void changeGa(TableColumn.CellEditEvent editedCell){
         Event eventSelected = table.getSelectionModel().getSelectedItem();
         eventSelected.setGaPrc((BigDecimal) editedCell.getNewValue());
+        try{
+            dao.update(eventSelected);
+        }catch(SQLException e){
+            errorMessage("Sql Error", "Cannot change General Admission price");
+        }
     }
     /**
      * accepts selected cell on table and changes fireworks to true or false on user input.
@@ -276,6 +329,11 @@ public class ModifyGUI implements Initializable{
     private void changeFworks(TableColumn.CellEditEvent editedCell){
         Event eventSelected = table.getSelectionModel().getSelectedItem();
         eventSelected.setfWorks((Boolean)editedCell.getNewValue());
+        try{
+            dao.update(eventSelected);
+        }catch(SQLException e){
+            errorMessage("Sql Error", "Cannot change fireworks");
+        }
     }
     private void select(){
         setSeatPct();
@@ -333,5 +391,11 @@ public class ModifyGUI implements Initializable{
                 System.out.println("Cannot delete");
             }
         }
+    }
+    private void errorMessage(String header, String body){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(header);
+        alert.setContentText(body);
+        alert.show();
     }
 }
