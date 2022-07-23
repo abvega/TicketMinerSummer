@@ -74,18 +74,18 @@ public class UserDao {
         return users;
     }
     public void update(User user) throws SQLException {
-        String query = "update users set ID = ?, Username = ? , Password = ?," +
+        String query = "update users set  Username = ? , Password = ?," +
                 "Money_Available =?, First_Name =?, Last_Name =?, Tickets_Purchased =?" +
-                "TicketMiner_Membership =?";
+                "TicketMiner_Membership =? where ID =?";
         PreparedStatement ps = con.prepareStatement(query);
-        ps.setInt(1, user.getiD());
-        ps.setString(2, user.getUserName());
-        ps.setString(3, user.getPassWord());
-        ps.setBigDecimal(4, user.getMoneyTotal());
-        ps.setString(5, user.getFirstName());
-        ps.setString(6, user.getLastName());
-        ps.setInt(7, user.getTixBought());
-        ps.setBoolean(8, user.getIsMember());
+        ps.setString(1, user.getUserName());
+        ps.setString(2, user.getPassWord());
+        ps.setBigDecimal(3, user.getMoneyTotal());
+        ps.setString(4, user.getFirstName());
+        ps.setString(5, user.getLastName());
+        ps.setInt(6, user.getTixBought());
+        ps.setBoolean(7, user.getIsMember());
+        ps.setInt(8, user.getiD());
         ps.executeUpdate();
     }
     public boolean authenticate(String userName, String password) throws SQLException {
