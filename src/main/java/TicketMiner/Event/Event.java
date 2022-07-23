@@ -96,7 +96,11 @@ public class Event {
     public int getSeatsLeft(){
         return (getCapacity() - getTotalSeatSold());
     }
-    public void setVipPrc(BigDecimal vipPrc) {this.vipPrc = vipPrc;}
+    public void setVipPrc(BigDecimal vipPrc) {
+        if(vipPrc.compareTo(BigDecimal.valueOf(0))<0){
+            throw new IllegalArgumentException("VIP price cant be negative");
+        }
+        this.vipPrc = vipPrc;}
     public void setGldPrc(BigDecimal gldPrc) {this.gldPrc = gldPrc;}
     public void setSlvrPrc(BigDecimal slvrPrc) {this.slvrPrc = slvrPrc;}
     public void setBrnzPrc(BigDecimal brnzPrc) {this.brnzPrc = brnzPrc;}

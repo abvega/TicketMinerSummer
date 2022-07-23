@@ -128,10 +128,10 @@ public class EventDaoImplementation implements Dao{
 
     @Override
     public void update(Event event) throws SQLException {
-        String query = "update events set Name = ?, Type = ?, Date = ?, Time = ?, Venue_Name = ?, Venue_Type = ?, Capacity = ?, Cost = ?," +
+        String query = "update events set Name = ?, Event_Type = ?, Date = ?, Time = ?, Venue_Name = ?, Venue_Type = ?, Capacity = ?, Cost = ?," +
                 "VIP_Pct = ?, Gold_Pct = ?, Silver_Pct = ?, Bronze_Pct = ?, General_Admission_Pct =?, Reserved_Extra_Pct = ?," +
-                "Pct_Seats_Unavailable = ?, VIP_Price = ?, Gold_Price, =?, Silver_Price = ?, Bronze_Price = ?, General_Admission_Price =?," +
-                "Fireworks_Planned = ?, Fireworks_Cost = ?, Event_ID = ? ";
+                "Pct_Seats_Unavailable = ?, VIP_Price = ?, Gold_Price =?, Silver_Price = ?, Bronze_Price = ?, General_Admission_Price =?," +
+                "Fireworks_Planned = ?, Fireworks_Cost = ? where Event_ID =?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, event.getName());
         ps.setString(2, event.getType());

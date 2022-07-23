@@ -21,6 +21,11 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="testfx.core" level="project" />
+    <orderEntry type="library" name="testfx.junit" level="project" />
+    <orderEntry type="library" name="loadui.testFx" level="project" />
+    <orderEntry type="library" name="junit" level="project" />
+    <orderEntry type="library" name="testfx.junit5" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter:5.9.0-RC1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.9.0-RC1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.opentest4j:opentest4j:1.2.0" level="project" />
@@ -29,10 +34,5 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-params:5.9.0-RC1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.9.0-RC1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.9.0-RC1" level="project" />
-    <orderEntry type="library" name="testfx.core" level="project" />
-    <orderEntry type="library" name="testfx.junit" level="project" />
-    <orderEntry type="library" name="loadui.testFx" level="project" />
-    <orderEntry type="library" name="junit" level="project" />
-    <orderEntry type="library" name="testfx.junit5" level="project" />
   </component>
 </module>

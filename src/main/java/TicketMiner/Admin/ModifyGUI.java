@@ -185,15 +185,10 @@ public class ModifyGUI implements Initializable{
      * @param editedCell
      */
     @FXML
-    private void changeEventName(TableColumn.CellEditEvent editedCell) {
+    private void changeEventName(TableColumn.CellEditEvent editedCell) throws SQLException {
         Event eventSelected = table.getSelectionModel().getSelectedItem();
         eventSelected.setName(editedCell.getNewValue().toString());
-        try {
             dao.update(eventSelected);
-        } catch (SQLException e) {
-            errorMessage("Sql Error", "Cannot change event name");
-            e.printStackTrace();
-        }
     }
     /**
      * accepts selected cell on table and changes the event type if user inputs new info into cell.
