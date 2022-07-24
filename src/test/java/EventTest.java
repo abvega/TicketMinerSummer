@@ -1,8 +1,10 @@
+import TicketMiner.Dao.EventDaoImplementation;
 import TicketMiner.Event.Event;
 import TicketMiner.Event.Venue;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 
 import static org.junit.Assert.*;
 
@@ -152,31 +154,44 @@ public class EventTest {
     }
 
     @Test
-    public void setVIPSeatRem() {
-        venue.setVipSeatPct(10);
-        venue.setCapacity(100);
-        event.setVenue(venue);
-        assertEquals(10, event.getVIPSeatRem());
+    public void getVIPSeatRem() throws SQLException {
+        EventDaoImplementation dao = new EventDaoImplementation();
+        event = dao.getEvent(59);
+        assertEquals(700, event.getVIPSeatRem());
     }
 
     @Test
-    public void setGoldSeatRem() {
+    public void getGoldSeatRem() throws SQLException {
+        EventDaoImplementation dao = new EventDaoImplementation();
+        event = dao.getEvent(59);
+        assertEquals(1400, event.getGoldSeatRem());
     }
 
     @Test
-    public void setSlvrSeatRem() {
+    public void getSlvrSeatRem() throws SQLException{
+        EventDaoImplementation dao = new EventDaoImplementation();
+        event = dao.getEvent(59);
+        assertEquals(2100, event.getSlvrSeatRem());
     }
 
     @Test
-    public void setBrnzSeatRem() {
+    public void getBrnzSeatRem() throws SQLException {
+        EventDaoImplementation dao = new EventDaoImplementation();
+        event = dao.getEvent(59);
+        assertEquals(2800, event.getBrnzSeatRem());
     }
 
     @Test
-    public void setGaSeatRem() {
+    public void getGaSeatRem() throws SQLException{
+        EventDaoImplementation dao = new EventDaoImplementation();
+        event = dao.getEvent(59);
+        assertEquals(6300, event.getGaSeatRem());
     }
-
     @Test
-    public void setExRsrvRem() {
+    public void getExRsrvRem() throws SQLException {
+        EventDaoImplementation dao = new EventDaoImplementation();
+        event = dao.getEvent(59);
+        assertEquals(700, event.getExRsrvRem());
     }
 
     @Test

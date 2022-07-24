@@ -35,6 +35,5 @@ public class LoginGUITest extends ApplicationTest {
         clickOn("#userName").write("alexvega");
         clickOn("#passWord").write("Fun!23");
         clickOn("#login");
-
     }
 }

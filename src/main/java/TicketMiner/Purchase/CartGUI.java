@@ -2,10 +2,18 @@ package TicketMiner.Purchase;
 
 import TicketMiner.Event.Event;
 import TicketMiner.User.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Optional;
 
@@ -48,6 +56,8 @@ public class CartGUI {
     private Label gaQ;
     @FXML
     private Label total;
+    @FXML
+    private Button confirm;
 
     /**
      * method used to set the User info for the user buying tickets.
@@ -100,6 +110,14 @@ public class CartGUI {
         this.brnz.setText(Double.toString(brnz));
         this.ga.setText(Double.toString(ga));
         this.total.setText(Double.toString(vip+gld+slvr+brnz+ga));
+    }
+
+    @FXML
+    private void goBack(ActionEvent event) throws IOException {
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/UserGUI.fxml")));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     /**

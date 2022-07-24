@@ -39,7 +39,9 @@ public class Venue {
         this.gaSeatRem = ((gaSeat/100.0)*capacity);
         this.exRsrvRem = ((exRsrv/100.0)*capacity);
     }
-    public Venue(){}
+    public Venue(){
+
+    }
 
     public String getName(){return name;}
     public String getVenType(){return venType;}
@@ -62,7 +64,7 @@ public class Venue {
     public void setName(String name){this.name = name;}
     public void setVenType(String type){this.venType = type;}
     public void setCapacity(int capacity){this.capacity = capacity;}
-    public void setVipSeatRem(int vipSeatRem) {this.vipSeatRem = this.vipSeatRem - vipSeatRem;}
+    public void setVipSeatRem(int vipSeatRem) {this.vipSeatRem =  getVIPSeatRem() - vipSeatRem;}
     public void setGoldSeatRem(int goldSeatRem) {this.goldSeatRem = getGoldSeatRem() - goldSeatRem;}
     public void setSlvrSeatRem(int slvrSeatRem) {this.slvrSeatRem = getSlvrSeatRem() - slvrSeatRem;}
     public void setBrnzSeatRem(int brnzSeatRem) {this.brnzSeatRem = getBrnzSeatRem() - brnzSeatRem;}
@@ -78,11 +80,11 @@ public class Venue {
     public String toString(){
         return  "Venue Name " +getName()+"\n"
                 +"Venue Capacity "+capacity+"\n"
-                +"VIP Seats Left "+ vipSeatRem +"\n"
-                +"Gold Seats Left "+goldSeatRem+"\n"
-                +"Silver Seats Left "+slvrSeatRem+"\n"
-                +"Bronze Seats Left " +brnzSeatRem+"\n"
-                +"Extra Reserved Seats Left "+exRsrvRem+"\n"
-                +"Genaral Admission Seats Left "+gaSeatRem+"\n";
+                +"VIP Seats Left "+ getVIPSeatRem() +"\n"
+                +"Gold Seats Left "+getGoldSeat()+"\n"
+                +"Silver Seats Left "+getSlvrSeat()+"\n"
+                +"Bronze Seats Left " +getBrnzSeat()+"\n"
+                +"Extra Reserved Seats Left "+getExRsrv()+"\n"
+                +"Genaral Admission Seats Left "+getGaSeat()+"\n";
     }
 }

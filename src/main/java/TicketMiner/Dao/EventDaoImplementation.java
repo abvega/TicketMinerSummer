@@ -26,7 +26,7 @@ public class EventDaoImplementation implements Dao{
         ps.setString(6, event.getVenueType());
         ps.setInt(7, event.getCapacity());
         ps.setInt(8,event.getVenCost());
-        ps.setInt(9, (event.getVipPct()));
+        ps.setDouble(9, (event.getVipPct()));
         ps.setInt(10, event.getGoldPct());
         ps.setInt(11,event.getSlvrPct());
         ps.setInt(12, event.getBrnzPct());
@@ -73,16 +73,10 @@ public class EventDaoImplementation implements Dao{
             event.setGaPrc(rs.getBigDecimal("General_Admission_Price"));
             event.setfWorks(rs.getBoolean("Fireworks_Planned"));
             event.setfWorkCost(rs.getInt("Fireworks_Cost"));
-            event.setVenue(new Venue());
-            event.setVenueName(rs.getString("Venue_Name"));
-            event.setVenueCapacity(rs.getInt("Capacity"));
-            event.setVIPSeatPct(rs.getInt("VIP_Pct"));
-            event.setGldSeatPct(rs.getInt("Gold_Pct"));
-            event.setSlvrSeatPct(rs.getInt("Silver_Pct"));
-            event.setBrnzSeatPct(rs.getInt("Bronze_Pct"));
-            event.setGaSeatPct(rs.getInt("General_Admission_Pct"));
-            event.setExRsrvPct(rs.getInt("Reserved_Extra_Pct"));
-            event.setVenueCost(rs.getInt("Cost"));
+            event.setVenue(new Venue(rs.getString("Venue_Name"),rs.getString("Venue_Type"),rs.getInt("Capacity"),rs.getInt("VIP_Pct"),
+                    rs.getInt("Gold_Pct"),rs.getInt("Silver_Pct"),rs.getInt("Bronze_Pct"),
+                    rs.getInt("General_Admission_Pct"),rs.getInt("Reserved_Extra_Pct"),rs.getInt("Pct_Seats_Unavailable"),
+                    rs.getInt("Cost")));
         }
         if (check) {
             return event;
@@ -99,7 +93,10 @@ public class EventDaoImplementation implements Dao{
         ArrayList<Event> events = new ArrayList<>();
         while(rs.next()){
             Event event = new Event();
-            event.setVenue(new Venue());
+            event.setVenue(new Venue(rs.getString("Venue_Name"),rs.getString("Venue_Type"),rs.getInt("Capacity"),rs.getInt("VIP_Pct"),
+                    rs.getInt("Gold_Pct"),rs.getInt("Silver_Pct"),rs.getInt("Bronze_Pct"),
+                    rs.getInt("General_Admission_Pct"),rs.getInt("Reserved_Extra_Pct"),rs.getInt("Pct_Seats_Unavailable"),
+                    rs.getInt("Cost")));
             event.setiD(rs.getInt("Event_ID"));
             event.setName(rs.getString("Name"));
             event.setType(rs.getString("Event_Type"));
@@ -112,15 +109,6 @@ public class EventDaoImplementation implements Dao{
             event.setGaPrc(rs.getBigDecimal("General_Admission_Price"));
             event.setfWorks(rs.getBoolean("Fireworks_Planned"));
             event.setfWorkCost(rs.getInt("Fireworks_Cost"));
-            event.setVenueName(rs.getString("Venue_Name"));
-            event.setVenueCapacity(rs.getInt("Capacity"));
-            event.setVIPSeatPct(rs.getInt("VIP_Pct"));
-            event.setGldSeatPct(rs.getInt("Gold_Pct"));
-            event.setSlvrSeatPct(rs.getInt("Silver_Pct"));
-            event.setBrnzSeatPct(rs.getInt("Bronze_Pct"));
-            event.setGaSeatPct(rs.getInt("General_Admission_Pct"));
-            event.setExRsrvPct(rs.getInt("Reserved_Extra_Pct"));
-            event.setVenueCost(rs.getInt("Cost"));
             events.add(event);
         }
         return events;

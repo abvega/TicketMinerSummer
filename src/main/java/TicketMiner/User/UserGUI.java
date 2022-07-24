@@ -101,6 +101,13 @@ public class UserGUI implements Initializable {
         }
         setTotals();
     }
+    @FXML
+    private void goBack(ActionEvent event) throws IOException {
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/LoginGUI.fxml")));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
 
     /**
      *

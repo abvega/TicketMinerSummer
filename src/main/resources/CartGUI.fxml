@@ -79,8 +79,8 @@
       <Label layoutX="408.0" layoutY="305.0" text="Click confirm to purchase: " />
       <ButtonBar layoutX="380.0" layoutY="330.0" prefHeight="40.0" prefWidth="200.0">
         <buttons>
-          <Button mnemonicParsing="false" text="Go Back" />
-            <Button mnemonicParsing="false" onAction="#confirmPurchase" text="Confirm" />
+          <Button mnemonicParsing="false" onAction="#goBack" text="Go Back" />
+            <Button fx:id="confirm" mnemonicParsing="false" onAction="#confirmPurchase" text="Confirm" />
         </buttons>
       </ButtonBar>
    </children>

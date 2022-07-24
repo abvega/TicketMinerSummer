@@ -339,7 +339,7 @@ public class ModifyGUI implements Initializable{
     private void setSeatPct(){
         if(table.getSelectionModel().getSelectedItem() != null){
             selectedEvent = table.getSelectionModel().getSelectedItem();
-            vPct.setText(Integer.toString(selectedEvent.getVipPct()));
+            vPct.setText(Double.toString(selectedEvent.getVipPct()));
             gPct.setText(Integer.toString(selectedEvent.getGoldPct()));
             sPct.setText(Integer.toString(selectedEvent.getSlvrPct()));
             bPct.setText(Integer.toString(selectedEvent.getBrnzPct()));
@@ -360,7 +360,7 @@ public class ModifyGUI implements Initializable{
     private void setSeatRem(){
         if(table.getSelectionModel().getSelectedItem() != null){
             selectedEvent = table.getSelectionModel().getSelectedItem();
-            vSeatRem.setText(Integer.toString(selectedEvent.getVIPSeatRem()));
+            vSeatRem.setText(Double.toString(selectedEvent.getVIPSeatRem()));
             gSeatRem.setText(Integer.toString(selectedEvent.getGoldSeatRem()));
             sSeatRem.setText(Integer.toString(selectedEvent.getSlvrSeatRem()));
             bSeatRem.setText(Integer.toString(selectedEvent.getBrnzSeatRem()));

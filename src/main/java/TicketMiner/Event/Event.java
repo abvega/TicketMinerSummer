@@ -110,11 +110,11 @@ public class Event {
     public void setName(String name) {this.name = name;}
     public void setDate(String date) {this.date = date;}
     public void setTime(String time) {this.time = time;}
-    public void setVipQuant(int vipQuant) {this.vipQuant = getVipQuant() + vipQuant;}
-    public void setGoldQuant(int goldQuant) {this.goldQuant = getGoldQuant() + goldQuant;}
-    public void setSlvrQuant(int slvrQuant) {this.slvrQuant = getSlvrQuant() + slvrQuant;}
-    public void setBrnzQuant(int brnzQuant) {this.brnzQuant = getBrnzQuant() + brnzQuant;}
-    public void setGaQuant(int gaQuant) {this.gaQuant = getGaQuant() + gaQuant;}
+    public void setVipQuant(int vipQuant) {this.vipQuant = this.vipQuant + vipQuant;}
+    public void setGoldQuant(int goldQuant) {this.goldQuant = this.goldQuant + goldQuant;}
+    public void setSlvrQuant(int slvrQuant) {this.slvrQuant = this.slvrQuant + slvrQuant;}
+    public void setBrnzQuant(int brnzQuant) {this.brnzQuant = this.brnzQuant + brnzQuant;}
+    public void setGaQuant(int gaQuant) {this.gaQuant = this.gaQuant + gaQuant;}
     public void setVenue(Venue venue) {this.venue = venue;}
     public void setVenueName(String name){this.venue.setName(name);}
     public void setVenueType(String type){this.venue.setVenType(type);}
@@ -140,6 +140,7 @@ public class Event {
                 +"Event Name "+getName()+"\n"
                 +"Date "+getDate()+"\n"
                 +"Time "+getTime()+"\n"
-                +"Fireworks "+getFireworks();
+                +"Fireworks "+getFireworks()+"\n"
+                +"VIP Seat Pct" +getVipPct();
     }
 }
