@@ -84,5 +84,6 @@
          </children>
       </GridPane>
       <Button layoutX="742.0" layoutY="347.0" mnemonicParsing="false" onAction="#confirmPurchase" text="Go to cart" />
+      <Button layoutX="73.0" layoutY="306.0" mnemonicParsing="false" onAction="#goBack" text="Go Back" />
    </children>
 </AnchorPane>
