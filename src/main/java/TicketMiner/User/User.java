@@ -10,7 +10,7 @@ public class User {
     private int iD;
     private String firstName;
     private String lastName;
-    private BigDecimal moneyTotal = new BigDecimal("0.00");
+    private BigDecimal moneyTotal;
     private int tixBought;
     private boolean isMember;
     private String userName;
@@ -19,8 +19,7 @@ public class User {
 
     public User(){}
 
-    public User(int iD, String firstName, String lastName, BigDecimal moneyTotal, boolean isMember, String userName, String passWord) {
-        this.iD = iD;
+    public User(String firstName, String lastName, BigDecimal moneyTotal, boolean isMember, String userName, String passWord) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.moneyTotal = moneyTotal;
@@ -61,5 +60,11 @@ public class User {
                 +"UserName "+getUserName()+"\n"
                 +"Password is "+getPassWord()+"\n"
                 +"Has saved "+ getAmtSavd();
+    }
+    public String returnUser(){
+        return "First Name: " + getFirstName()+ "\n"
+                +"Last Name: "+ getLastName()+ "\n"
+                +"User Name: "+ getUserName()+"\n"
+                +"Balance: " + getMoneyTotal();
     }
 }

@@ -31,8 +31,6 @@ import java.util.*;
  * Controller class for modifyGUI fxml
  */
 public class ModifyGUI implements Initializable{
-    private Scene scene;
-    private Stage stage;
     @FXML
     private TableView<Event> table;
     @FXML
@@ -98,7 +96,6 @@ public class ModifyGUI implements Initializable{
     @FXML
     private Label totSeatRem;
     private final EventDaoImplementation dao = new EventDaoImplementation();
-
     private Event selectedEvent;
 
     public ModifyGUI() {
@@ -173,8 +170,8 @@ public class ModifyGUI implements Initializable{
      */
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        scene = new Scene(FXMLLoader.load(getClass().getResource("/AdminPanelGUI.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/AdminPanelGUI.fxml")));
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.sizeToScene();
         stage.show();

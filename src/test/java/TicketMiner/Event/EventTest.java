@@ -1,16 +1,22 @@
-import TicketMiner.Dao.EventDaoImplementation;
-import TicketMiner.Event.Event;
-import TicketMiner.Event.Venue;
-import org.junit.Test;
+package TicketMiner.Event;
 
+import TicketMiner.Dao.EventDaoImplementation;
+import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 
 import static org.junit.Assert.*;
 
 public class EventTest {
-    Event event = new Event();
-    Venue venue = new Venue();
+
+    Event event;
+    Venue venue;
+    @BeforeEach
+    public void start(){
+        event = new Event();
+        venue = new Venue();
+    }
     @Test
     public void setVipPrc() {
         try {
@@ -196,37 +202,107 @@ public class EventTest {
 
     @Test
     public void setVIPSeatPct() {
+        event.setVenue(venue);
+        event.setVIPSeatPct(10);
+        assertEquals(10,event.getVipPct());
     }
 
     @Test
     public void setGldSeatPct() {
+        event.setVenue(venue);
+        event.setGldSeatPct(10);
+        assertEquals(10, event.getGoldPct());
     }
 
     @Test
     public void setSlvrSeatPct() {
+        event.setVenue(venue);
+        event.setSlvrSeatPct(10);
+        assertEquals(10,event.getSlvrPct());
     }
 
     @Test
     public void setBrnzSeatPct() {
+        event.setVenue(venue);
+        event.setBrnzSeatPct(24);
+        assertEquals(24, event.getBrnzPct());
     }
 
     @Test
     public void setGaSeatPct() {
+        event.setVenue(venue);
+        event.setGaSeatPct(37);
+        assertEquals(37, event.getGaPct());
     }
 
     @Test
     public void setExRsrvPct() {
+        event.setVenue(venue);
+        event.setExRsrvPct(18);
+        assertEquals(18, event.getExtPct());
     }
 
     @Test
     public void setUnavail() {
+        event.setVenue(venue);
+        event.setUnavail(61);
+        assertEquals(61, event.getUnavail());
     }
 
     @Test
     public void setfWorks() {
+        event.setVenue(venue);
+        event.setfWorks(false);
+        assertFalse(event.getFireworks());
     }
 
     @Test
     public void setfWorkCost() {
+        event.setfWorkCost(1000);
+        assertEquals(1000,event.getfWorkCost());
+    }
+    @Test
+    public void getRevenueTest() throws SQLException{
+        EventDaoImplementation dao = new EventDaoImplementation();
+        event = dao.getEvent(13);
+        event.setVipQuant(10);
+        event.setGoldQuant(10);
+        event.setSlvrQuant(10);
+        event.setBrnzQuant(10);
+        event.setGaQuant(10);
+        assertNotEquals(new BigDecimal("0.00"),event.getRevenue());
+    }
+    @Test
+    public void getRevenueTotal() throws SQLException{
+        EventDaoImplementation dao = new EventDaoImplementation();
+        event = dao.getEvent(13);
+        event.setVipQuant(10);
+        event.setGoldQuant(10);
+        event.setSlvrQuant(10);
+        event.setBrnzQuant(10);
+        event.setGaQuant(10);
+        assertEquals(new BigDecimal("1386.00"), event.getRevenue());
+    }
+    @Test
+    public void getProfitTest() throws SQLException{
+        EventDaoImplementation dao = new EventDaoImplementation();
+        event = dao.getEvent(13);
+        event.setVipQuant(10);
+        event.setGoldQuant(10);
+        event.setSlvrQuant(10);
+        event.setBrnzQuant(10);
+        event.setGaQuant(10);
+        assertNotEquals(new BigDecimal("0.00"), event.getProfit());
+    }
+    @Test
+    public void getProfitTotal() throws SQLException{
+        EventDaoImplementation dao = new EventDaoImplementation();
+        event = dao.getEvent(13);
+        event.setVipQuant(2900);
+        event.setGoldQuant(5800);
+        event.setSlvrQuant(8700);
+        event.setBrnzQuant(11600);
+        event.setGaQuant(26100);
+        assertEquals(new BigDecimal("571300.00"), event.getProfit());
     }
 }

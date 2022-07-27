@@ -47,7 +47,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="TicketMiner.Event.Event name" />
+            <Label text="Event name" />
             <Label text="Event date" GridPane.rowIndex="1" />
             <Label text="Event time" GridPane.rowIndex="2" />
             <Label text="Event location" GridPane.rowIndex="3" />
