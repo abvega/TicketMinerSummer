@@ -47,9 +47,9 @@ public class LoginGUI {
             Scene scene = new Scene(tableParent);
             UserGUI userGUI = loader.getController();
             userGUI.setUser(userName.getText());
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
             return;
         }
         Alert alert = new Alert(Alert.AlertType.WARNING, "Username and/or password do not exist");
@@ -57,5 +57,13 @@ public class LoginGUI {
     }
     private boolean checkCreds(String userName, String passWord)throws SQLException{
         return users.authenticate(userName, passWord);
+    }
+    @FXML
+    private void newUser(ActionEvent event) throws IOException {
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/NewUserGUI.fxml")));
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.sizeToScene();
+        stage.show();
     }
 }

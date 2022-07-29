@@ -19,7 +19,7 @@
       </Label>
       <Button fx:id="login" layoutX="238.0" layoutY="164.0" mnemonicParsing="false" onAction="#login" text="Login" />
       <Button fx:id="back" layoutX="301.0" layoutY="165.0" mnemonicParsing="false" onAction="#goBack" text="Go Back" />
-      <Button fx:id="newUser" layoutX="382.0" layoutY="166.0" mnemonicParsing="false" text="New Account" />
+      <Button fx:id="newUser" layoutX="382.0" layoutY="166.0" mnemonicParsing="false" onAction="#newUser" text="New Account" />
       <PasswordField fx:id="passWord" layoutX="241.0" layoutY="114.0" promptText="Password" />
    </children>
 </AnchorPane>

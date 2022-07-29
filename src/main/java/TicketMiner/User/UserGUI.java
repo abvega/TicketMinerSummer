@@ -89,7 +89,6 @@ public class UserGUI implements Initializable {
     private Label totTot;
     private EventDaoImplementation eventList = new EventDaoImplementation();
     private UserDao userList = new UserDao();
-    //private UserList userList = UserList.getInstance();
     private User logUser;
     private Event selectedEvent;
     @Override

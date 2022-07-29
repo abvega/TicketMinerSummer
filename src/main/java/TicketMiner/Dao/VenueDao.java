@@ -84,8 +84,8 @@ public class VenueDao {
         return venues;
     }
     public void update(VenueSm venue) throws SQLException {
-        String query = "update venues set Name = ?, Capacity =?, Concert_Capacity = ?, Cost =?, VIP_Pct =?," +
-                "Gold_Pct=?, Silver_Pct=?, Bronze_Pct=?, General_Admission_Pct= ?, Reserved_Extra_Pct =?";
+        String query = "update venues set Capacity =?, Concert_Capacity = ?, Cost =?, VIP_Pct =?," +
+                "Gold_Pct=?, Silver_Pct=?, Bronze_Pct=?, General_Admission_Pct= ?, Reserved_Extra_Pct =? where Name = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, venue.getName());
         ps.setString(2, venue.getType());

@@ -1,20 +1,14 @@
 package TicketMiner.User;
 
 import TicketMiner.Dao.UserDao;
-import TicketMiner.MainMenuGUI;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.util.Optional;
 
 public class NewUserGUI {
@@ -41,7 +35,7 @@ public class NewUserGUI {
         monies.setText(Integer.toString(10000));
     }
     @FXML
-    private void makeUser() throws SQLException, IOException {
+    private void makeUser() throws IOException {
         if(!confirmPass.getText().equals(passWord.getText())){
             createAlert("passwords do not match", "Check inputs and verify passwords match before continuing.");
         }
@@ -57,7 +51,7 @@ public class NewUserGUI {
                 //dao.add(user);
             }
             else if(selected == ButtonType.CANCEL){
-
+                
             }
         }
     }

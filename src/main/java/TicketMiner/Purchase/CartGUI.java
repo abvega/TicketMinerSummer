@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -13,6 +14,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -124,15 +126,9 @@ public class CartGUI {
      * Method displays alert to confirm transaction on user input.
      */
     @FXML
-    private void confirmPurchase(){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setHeaderText("Confirm Purchase");
-        alert.setContentText(setAlertContent());
-        Optional<ButtonType> result = alert.showAndWait();
-        if(result.isPresent() && result.get() == ButtonType.OK){
-            recordTransaction();
-        }
-        alert.close();
+    private void confirmPurchase(ActionEvent event) {
+        recordTransaction();
+        //scene change
     }
 
     /**

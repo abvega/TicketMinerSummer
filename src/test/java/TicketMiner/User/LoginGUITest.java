@@ -36,4 +36,9 @@ public class LoginGUITest extends ApplicationTest {
         clickOn("#passWord").write("Fun!23");
         clickOn("#login");
     }
+    @Test
+    public void testNewUserTransition(){
+        clickOn("#newUser");
+        sleep(5000);
+    }
 }

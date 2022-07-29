@@ -4,9 +4,7 @@ import TicketMiner.Dao.EventDaoImplementation;
 import TicketMiner.Dao.UserDao;
 import TicketMiner.Event.Event;
 import TicketMiner.User.User;
-import TicketMiner.User.UserGUI;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
@@ -15,8 +13,6 @@ import org.junit.After;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
-
-import static org.junit.Assert.*;
 
 public class CartGUITest extends ApplicationTest {
     User user;
@@ -36,7 +32,6 @@ public class CartGUITest extends ApplicationTest {
         gui.setPrices(100,100,100,100,100);
         stage.show();
     }
-
     @After
     public void tearDown() throws Exception {
         FxToolkit.hideStage();
@@ -45,7 +40,7 @@ public class CartGUITest extends ApplicationTest {
     }
     @Test
     public void test(){
-        sleep(5000);
         clickOn("#confirm");
+        sleep(10000);
     }
 }
