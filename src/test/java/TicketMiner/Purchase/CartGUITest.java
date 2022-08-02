@@ -21,14 +21,14 @@ public class CartGUITest extends ApplicationTest {
     public void start(Stage stage) throws Exception {
         EventDaoImplementation eDao = new EventDaoImplementation();
         UserDao uDao = new UserDao();
-        user = uDao.getUser("alexvega");
+        user = uDao.getUser("test");
         event = eDao.getEvent(59);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/CartGUI.fxml"));
         stage.setScene(new Scene(loader.load()));
         CartGUI gui = loader.getController();
         gui.setUser(user);
         gui.setEvent(event);
-        gui.setQuants(5,10,15,20,25);
+        gui.setQuants(1,1,1,1,1);
         gui.setPrices(100,100,100,100,100);
         stage.show();
     }

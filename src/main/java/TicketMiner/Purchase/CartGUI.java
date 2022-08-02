@@ -1,7 +1,9 @@
 package TicketMiner.Purchase;
 
+import TicketMiner.Dao.UserDao;
 import TicketMiner.Event.Event;
 import TicketMiner.User.User;
+import TicketMiner.User.UserGUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,10 +19,11 @@ import javafx.stage.Stage;
 import javax.swing.*;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.Optional;
 
 public class CartGUI {
-
+    private UserDao dao = new UserDao();
     private User user;
     private Event event;
 
@@ -126,9 +129,17 @@ public class CartGUI {
      * Method displays alert to confirm transaction on user input.
      */
     @FXML
-    private void confirmPurchase(ActionEvent event) {
+    private void confirmPurchase(ActionEvent event) throws IOException, SQLException {
         recordTransaction();
-        //scene change
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/UserGUI.fxml"));
+        Parent tableParent = loader.load();
+        Scene scene = new Scene(tableParent);
+        UserGUI userGUI = loader.getController();
+        userGUI.setUser(user.getUserName());
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     /**
@@ -153,7 +164,7 @@ public class CartGUI {
      * When called, checks if the user can afford transaction, if true, records the transaction and deducts cost from
      * users account. If false, alert window pops up telling user they have insufficient funds.
      */
-    private void recordTransaction() {
+    private void recordTransaction() throws SQLException {
         if(user.getMoneyTotal().compareTo(new BigDecimal(total.getText())) > 0) {
             event.setVipQuant(Integer.parseInt(vipQ.getText()));
             event.setGoldQuant(Integer.parseInt(gldQ.getText()));
@@ -162,6 +173,7 @@ public class CartGUI {
             event.setGaQuant(Integer.parseInt(gaQ.getText()));
             user.newMoneyTotal(BigDecimal.valueOf(Double.parseDouble(total.getText())));
             user.setTixBought(totalTickets());
+            dao.update(user);
         }
         else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -176,6 +188,8 @@ public class CartGUI {
      * @return total number of tickets
      */
     private int totalTickets(){
-        return Integer.parseInt(vipQ.getText() + gldQ.getText() + slvrQ.getText()+ brnzQ.getText()+gaQ.getText());
+        return Integer.parseInt(vipQ.getText()) + Integer.parseInt(gldQ.getText())
+                + Integer.parseInt(slvrQ.getText())+ Integer.parseInt(brnzQ.getText())
+                + Integer.parseInt(gaQ.getText());
     }
 }

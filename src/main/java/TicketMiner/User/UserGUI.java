@@ -238,8 +238,8 @@ public class UserGUI implements Initializable {
             cartGUI.setEvent(selectedEvent);
             cartGUI.setPrices(Double.parseDouble(vipTot.getText()), Double.parseDouble(gldTot.getText()),
                     Double.parseDouble(slvrTot.getText()), Double.parseDouble(brnzTot.getText()), Double.parseDouble(gaTot.getText()));
-            cartGUI.setQuants(Integer.parseInt(vipAmt.getText()), Integer.parseInt(gldAmt.getText()), Integer.parseInt(slvrAmt.getText())
-            , Integer.parseInt(brnzAmt.getText()), Integer.parseInt(gaAmt.getText()));
+            cartGUI.setQuants(Integer.parseInt(vipAmt.getText()), Integer.parseInt(gldAmt.getText()), Integer.parseInt(slvrAmt.getText()),
+                    Integer.parseInt(brnzAmt.getText()), Integer.parseInt(gaAmt.getText()));
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(scene);
             window.show();

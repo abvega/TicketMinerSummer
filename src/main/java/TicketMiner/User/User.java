@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  */
 
 public class User {
-    private int iD;
+    private int ID;
     private String firstName;
     private String lastName;
     private BigDecimal moneyTotal;
@@ -30,7 +30,7 @@ public class User {
         this.amtSavd = 0;
     }
 
-    public int getiD() {return iD;}
+    public int getID() {return ID;}
     public String getFirstName() {return firstName;}
     public String getLastName() {return lastName;}
     public BigDecimal getMoneyTotal() {return moneyTotal;}
@@ -40,18 +40,18 @@ public class User {
     public String getPassWord() {return passWord;}
     public int getAmtSavd() {return amtSavd;}
 
-    public void setiD(int iD) {this.iD = iD;}
+    public void setID(int ID) {this.ID = ID;}
     public void setFirstName(String firstName) {this.firstName = firstName;}
     public void setLastName(String lastName) {this.lastName = lastName;}
     public void setMoney(BigDecimal money){this.moneyTotal = money;}
     public void newMoneyTotal(BigDecimal moneyTotal) {this.moneyTotal = this.moneyTotal.subtract(moneyTotal);}
-    public void setTixBought(int tixBought) {this.tixBought = getTixBought() + tixBought;}
+    public void setTixBought(int tixBought) {this.tixBought = this.tixBought + tixBought;}
     public void setMember(boolean member) {isMember = member;}
     public void setUserName(String userName) {this.userName = userName;}
     public void setPassWord(String passWord) {this.passWord = passWord;}
     public void setAmtSavd(int amtSavd) {this.amtSavd = getAmtSavd() + amtSavd;}
     public String toString(){
-        return "ID " + getiD() + "\n"
+        return "ID " + getID() + "\n"
                 +"First Name "+ getFirstName()+ "\n"
                 +"Last Name " + getLastName()+"\n"
                 +"Wallet Total "+getMoneyTotal()+"\n"

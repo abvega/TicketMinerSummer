@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  */
 
 public class Event {
-    private int ident;
+    private int id;
     private String type;
     private String name;
     private String date;
@@ -44,7 +44,7 @@ public class Event {
         this.fWorkCost = fWorkCost;
     }
 
-    public int getID() {return ident;}
+    public int getID() {return id;}
     public String getType() {return type;}
     public String getName() {return name;}
     public String getDate() {return date;}
@@ -105,7 +105,7 @@ public class Event {
     public void setSlvrPrc(BigDecimal slvrPrc) {this.slvrPrc = slvrPrc;}
     public void setBrnzPrc(BigDecimal brnzPrc) {this.brnzPrc = brnzPrc;}
     public void setGaPrc(BigDecimal gaPrc) {this.gaPrc = gaPrc;}
-    public void setiD(int iD) {this.ident = iD;}
+    public void setiD(int iD) {this.id = iD;}
     public void setType(String type) {this.type = type;}
     public void setName(String name) {this.name = name;}
     public void setDate(String date) {this.date = date;}

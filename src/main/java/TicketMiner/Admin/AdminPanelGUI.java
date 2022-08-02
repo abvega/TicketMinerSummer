@@ -3,6 +3,7 @@ package TicketMiner.Admin;
  * Controller class for AdminPanelGUI
  */
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,8 +17,6 @@ import java.io.IOException;
 public class AdminPanelGUI {
     @FXML
     private Label myLabel;
-    private Scene scene;
-    private Stage stage;
     private final int WINDOW_WIDTH = 350;
     private final int WINDOW_HEIGHT = 350;
 
@@ -26,9 +25,10 @@ public class AdminPanelGUI {
      * @param event
      * @throws IOException
      */
-    public void createNew(ActionEvent event) throws IOException {
-       scene = new Scene(FXMLLoader.load(getClass().getResource("/CreateNewGUI.fxml")));
-       stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    @FXML
+    private void createNew(ActionEvent event) throws IOException {
+       Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/CreateNewGUI.fxml")));
+       Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
        stage.setScene(scene);
        stage.sizeToScene();
        stage.show();
@@ -39,9 +39,10 @@ public class AdminPanelGUI {
      * @param event
      * @throws IOException
      */
-    public void modify(ActionEvent event)throws IOException{
-        scene = new Scene(FXMLLoader.load(getClass().getResource("/ModifyGUI.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    @FXML
+    private void modify(ActionEvent event)throws IOException{
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/ModifyGUI.fxml")));
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.sizeToScene();
         stage.show();
@@ -52,9 +53,19 @@ public class AdminPanelGUI {
      * @param event
      * @throws IOException
      */
-    public void goBack(ActionEvent event)throws IOException{
-        scene = new Scene(FXMLLoader.load(getClass().getResource("/MainMenuGUI.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    @FXML
+    private void goBack(ActionEvent event)throws IOException{
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/MainMenuGUI.fxml")));
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.sizeToScene();
+        stage.show();
+    }
+
+    @FXML
+    private void modifyUser(ActionEvent event) throws IOException {
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/ModifyUserGUI.fxml")));
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.sizeToScene();
         stage.show();

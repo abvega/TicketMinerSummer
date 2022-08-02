@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.Optional;
 
 public class NewUserGUI {
@@ -35,7 +36,7 @@ public class NewUserGUI {
         monies.setText(Integer.toString(10000));
     }
     @FXML
-    private void makeUser() throws IOException {
+    private void makeUser() throws SQLException {
         if(!confirmPass.getText().equals(passWord.getText())){
             createAlert("passwords do not match", "Check inputs and verify passwords match before continuing.");
         }
@@ -48,7 +49,7 @@ public class NewUserGUI {
             Optional<ButtonType> result = alert.showAndWait();
             ButtonType selected = result.orElse(null);
             if(selected == ButtonType.OK){
-                //dao.add(user);
+                dao.add(user);
             }
             else if(selected == ButtonType.CANCEL){
                 

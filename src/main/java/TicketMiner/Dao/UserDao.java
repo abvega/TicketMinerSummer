@@ -38,7 +38,7 @@ public class UserDao {
         boolean check = false;
         while(rs.next()){
             check = true;
-            user.setiD(rs.getInt("ID"));
+            user.setID(rs.getInt("ID"));
             user.setUserName(rs.getString("Username"));
             user.setPassWord(rs.getString("Password"));
             user.setMoney(rs.getBigDecimal("Money_Available"));
@@ -61,7 +61,7 @@ public class UserDao {
         ArrayList<User> users = new ArrayList<>();
         while(rs.next()){
             User user = new User();
-            user.setiD(rs.getInt("ID"));
+            user.setID(rs.getInt("ID"));
             user.setUserName(rs.getString("Username"));
             user.setPassWord(rs.getString("Password"));
             user.setMoney(rs.getBigDecimal("Money_Available"));
@@ -75,7 +75,7 @@ public class UserDao {
     }
     public void update(User user) throws SQLException {
         String query = "update users set  Username = ? , Password = ?," +
-                "Money_Available =?, First_Name =?, Last_Name =?, Tickets_Purchased =?" +
+                "Money_Available =?, First_Name =?, Last_Name =?, Tickets_Purchased =?," +
                 "TicketMiner_Membership =? where ID =?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, user.getUserName());
@@ -85,7 +85,7 @@ public class UserDao {
         ps.setString(5, user.getLastName());
         ps.setInt(6, user.getTixBought());
         ps.setBoolean(7, user.getIsMember());
-        ps.setInt(8, user.getiD());
+        ps.setInt(8, user.getID());
         ps.executeUpdate();
     }
     public boolean authenticate(String userName, String password) throws SQLException {
